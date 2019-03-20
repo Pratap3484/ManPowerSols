@@ -1,0 +1,21 @@
+﻿@model ManPowerSols.Core.Models.TestModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Welcome to Test Page</h2>
+@using (@Html.BeginForm("Test", "Test", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div>Enter Your First Name</div>
+<div>
+    @Html.TextBoxFor(m=>m.fname)
+</div>
+<div>Enter Your Last Name</div>
+<div>
+    @Html.TextBoxFor(m => m.lname)
+</div>
+    <div>
+        <input type="submit" value="Submit" />
+    </div>
+
+}

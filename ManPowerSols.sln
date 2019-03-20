@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManPowerSols.Web", "ManPowerSols\ManPowerSols.Web.csproj", "{14755015-F0AF-40BE-B4CF-AB0E560F7A96}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManPowerSols.Core", "ManPowerSols.Core\ManPowerSols.Core.csproj", "{EBEE3382-DE53-4A01-9C57-C4B65ED99E7A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManPowerSols.Data", "ManPowerSols.Data\ManPowerSols.Data.csproj", "{62C70D92-A881-4798-82DE-B374B4E05E4E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{14755015-F0AF-40BE-B4CF-AB0E560F7A96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14755015-F0AF-40BE-B4CF-AB0E560F7A96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14755015-F0AF-40BE-B4CF-AB0E560F7A96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14755015-F0AF-40BE-B4CF-AB0E560F7A96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBEE3382-DE53-4A01-9C57-C4B65ED99E7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBEE3382-DE53-4A01-9C57-C4B65ED99E7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBEE3382-DE53-4A01-9C57-C4B65ED99E7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBEE3382-DE53-4A01-9C57-C4B65ED99E7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62C70D92-A881-4798-82DE-B374B4E05E4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62C70D92-A881-4798-82DE-B374B4E05E4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62C70D92-A881-4798-82DE-B374B4E05E4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62C70D92-A881-4798-82DE-B374B4E05E4E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
