@@ -26,5 +26,13 @@ namespace ManPowerSols.Areas.Admin.Controllers
             var data = trObj.TestRep(tm);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult Test2(TestModel tm)
+        {
+            string a = "aaa";
+            string b = "aaa";
+            string c = "aaa";
+            var data = trObj.TestRep(tm);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
     }
 }
