@@ -1,0 +1,121 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+}
+
+<div class="az-content-body">
+
+    <div class="row row-sm">
+        <div class="col-xl-9 mg-t-20">
+            <div class="card card-dashboard-twentyone">
+                <div class="row no-gutters">
+                    <div class="col-md-12">
+                        <div class="card-body">
+                            <!-- <h6 class="az-content-label">My Profile</h6> -->
+                            <p>Job Posting</p>
+                            <hr class="mg-y-40">
+                            <div class="modal-body pd-sm-40">
+                                <div class="form-group" data-select2-id="8">
+                                    <select class="form-control" data-select2-id="1" tabindex="-1" aria-hidden="true">
+                                        <option label="Select Sector" data-select2-id="3"></option>
+                                        Construction
+                                        <option value="February" data-select2-id="16">Engineering</option>
+                                        <option value="March" data-select2-id="17">Electricity</option>
+                                        Plumbing
+                                        <option value="May" data-select2-id="19">House Keeping</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Other Sector">
+                                </div><!-- form-group -->
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="No. Employees Required">
+                                </div><!-- form-group -->
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Emp. Experience">
+                                </div><!-- form-group -->
+                                <div class="form-group" data-select2-id="8">
+                                    <select class="form-control" data-select2-id="1" tabindex="-1" aria-hidden="true">
+                                        <option label="Shift Timings" data-select2-id="3"></option>
+                                        <option value="February" data-select2-id="16">6AM to 4PM</option>
+                                        <option value="March" data-select2-id="17">9AM to 6PM</option>
+                                        <option value="May" data-select2-id="19">8PM to 5AM</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group" data-select2-id="8">
+                                    <select class="form-control" data-select2-id="1" tabindex="-1" aria-hidden="true">
+                                        <option label="Contract Period" data-select2-id="3"></option>
+                                        <option value="1 Week" data-select2-id="16">1 Week</option>
+                                        <option value="2 Weeks" data-select2-id="16">2 Weeks</option>
+                                        <option value="1 Month" data-select2-id="16">1 Month</option>
+                                        <option value="3 Months" data-select2-id="17">3 Months</option>
+                                        <option value="6 Months" data-select2-id="19">6 Months</option>
+                                        <option value="1 Year" data-select2-id="19">1 Year</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Work Location">
+                                </div><!-- form-group -->
+                                <div class="form-group" data-select2-id="8">
+                                    <select class="form-control" data-select2-id="1" tabindex="-1" aria-hidden="true">
+                                        <option label="Transport Facility" data-select2-id="3"></option>
+                                        <option value="January" data-select2-id="15">Yes</option>
+                                        <option value="February" data-select2-id="16">No</option>
+
+                                    </select>
+                                </div>
+                                <br>
+                                <div class="form-group mg-b-25">
+                                    <label class="ckbox mg-b-5">
+                                        <input type="checkbox"><span class="tx-13">I agree to <a href="">Terms</a> and <a href="">Privacy Policy</a></span>
+                                    </label>
+
+                                </div><!-- form-group -->
+                                <button class="btn btn-primary btn-block" onclick="navigatedashboard()">Continue</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div><!-- row -->
+            </div><!-- card -->
+        </div><!-- col -->
+        <div class="col-md-4 col-xl-3 mg-t-20">
+            <div class="card card-body card-dashboard-twentythree ht-xl-100p">
+                <h6 class="card-title tx-14 mg-b-10">Manage Deals</h6>
+                <p class="mg-b-15">The percentage of manages the empoloyers request and agents posting.</p>
+
+                <div class="d-flex flex-column align-items-center mg-b-25">
+                    <div>
+                        <div class="az-donut-chart chart1">
+                            <div class="slice one"></div>
+                            <div class="slice two"></div>
+                            <div class="chart-center">
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- d-flex -->
+
+                <div class="row row-sm">
+                    <div class="col-6">
+                        <label><span class="bg-indigo"></span> Employers</label>
+                        <h5>67%</h5>
+                    </div>
+                    <div class="col-6">
+                        <label><span class="bg-gray-500"></span> Agents</label>
+                        <h5>89%</h5>
+                    </div>
+                </div><!-- row -->
+            </div>
+        </div>
+    </div><!-- row -->
+</div>
+
+<script>
+    //$('#navigatedashboard').click(function () {
+    //    window.location.href = "../User/Home";
+    //})
+</script>

@@ -1,0 +1,251 @@
+﻿
+@{
+    ViewBag.Title = "UserDeals";
+    Layout = "~/Views/Shared/_EmployerLayout.cshtml";
+}
+
+
+
+<div class="">
+    <div class="az-content-body">
+        <div class="row row-sm">
+            <div class="col-xl-12 mg-t-20">
+                <div class="card card-dashboard-twentyone">
+                    <div class="row no-gutters">
+                        <div class="col-md-12">
+                            <!--Div To show the dta grid-->
+                            <div class="card-body" id="divJobsgrid">
+                                <!-- <h6 class="az-content-label">My Profile</h6> -->
+                                <p>My Postings</p>
+                                <hr class="">
+
+                                <div class="modal-body pd-sm-40" style="padding:0 20px">
+
+                                    <div>
+                                        <div class="form-group" data-select2-id="8">
+                                            Filter Jobs by
+                                            <select class="form-control" data-select2-id="1" style="width:42%;display:inline-block" tabindex="-1" aria-hidden="true" id="ddlsearchcategory">
+                                                <option label="Select Sector" data-select2-id="3"></option>
+                                                <option value="Marine" data-select2-id="17">Marine</option>
+                                                <option value="Marine Crew" data-select2-id="17">Marine Crew</option>
+                                                <option value="Hotel Crew" data-select2-id="17">Hotel Crew</option>
+                                                <option value="Construction" data-select2-id="17">Construction</option>
+                                                <option value="Process" data-select2-id="16">Process</option>
+                                                <option value="Service" data-select2-id="17">Service</option>
+                                                <option value="Office" data-select2-id="17">Office</option>
+                                                <option value="Voyage" data-select2-id="19">Voyage</option>
+                                                <option value="Riding Crew" data-select2-id="17">Riding Crew</option>
+                                                <option value="Domestic Workers" data-select2-id="17">Domestic Workers</option>
+                                                <option value="Offshore" data-select2-id="19">Offshore</option>
+                                                <option value="Others" data-select2-id="19">Others</option>
+
+                                            </select> &nbsp;
+                                            <select class="form-control" data-select2-id="1" style="width:42%;display:inline-block" tabindex="-1" aria-hidden="true" id="ddlsearchcountry">
+                                                <option label="Select Country" data-select2-id="3"></option>
+                                            </select>
+                                            <table id="example2" class="table"></table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                                
+                            </div>
+
+                        </div><!-- row -->
+                       
+                        <div class="col-sm-12 card-body" >
+                            <div class="col-sm-12">
+                                <h4 id="h3Text"></h4>
+                            </div>
+                            <div class="modal-body pd-sm-40" style="padding:0 20px">
+                                <table id="tblusersdarta" class="table"></table>
+                            </div>
+                        </div>
+                    </div><!-- card -->
+                </div><!-- col -->
+            </div><!-- row -->
+        </div><!-- az-content-body -->
+        <!-- az-footer -->
+    </div><!-- az-content -->
+</div>
+
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+
+<script src="~/lib/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="~/lib/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="~/lib/datatables.net-dt/js/dataTables.dataTables.min.js"></script>
+<script src="~/lib/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="~/lib/datatables.net-responsive-dt/js/responsive.dataTables.min.js"></script>
+
+<script src="~/MpsJs/CommonJs.js"></script>
+
+<script src="~/timer/bootstrap.min.js"></script>
+<script src="~/timer/bootstrap-clockpicker.min.js"></script>
+<script src="~/timer/highlight.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+
+
+<script>
+    new PerfectScrollbar('.az-sidebar-body', {
+        suppressScrollX: true
+    });
+    var dataSet = []
+    $(document).ready(function () {
+        getJobsbyType('3')
+    })
+    function getJobsbyType(type) {
+        dataSet = [];
+        var jp = {};
+        jp.UserID = sessionStorage.getItem('usermailid');
+        jp.RecordType = type;
+        jp.RequestType = 'View'
+        $.ajax({
+            url: '/Home/PostJobAndGetJobs',
+            type: 'POST',
+            data: JSON.stringify(jp),
+            contentType: 'application/json; charset=utf-8',
+            dataType: "json",
+            success: function (res) {
+                if (res.ResponseCode == "200") {
+                    dataSet = res.ResponseList.joblist
+                    if (res.ResponseList.joblist.length>0)
+                        binddata(res.ResponseList.joblist)
+                }
+
+                else if (res.ResponseCode == "100") {
+                    binddata(dataSet)
+                }
+                else {
+
+                    alert('Error : Status Code: ' + res.ResponseCode + '. Messsage' + res.ResponseMessage)
+                }
+            },
+            error: function (err) {
+            }
+        });
+    }
+    //Function used to bind the data to data table
+    var table;
+    function binddata(res) {
+        getAppliedusers(res[0].Rec_ID, res[0].Post_Title)
+        var url = window.location.href.split('/')[0]
+        for (var i = 0; i < res.length; i++) {
+            //var act = '<img src="' + url + '/img/edit.png" style="cursor:pointer" onclick="editJob(\'' + res[i].Rec_ID + '\')">&nbsp;&nbsp;<img src="' + url + '/img/delete.png" onclick="deleteJob(\'' + res[i].Rec_ID + '\',\'N\')" style="cursor:pointer">'
+            dataSet[i] = [
+                '<a href="#" style="cursor:pointer" onclick="getAppliedusers(\'' + res[i].Rec_ID + '\',\'' + res[i].Post_Title + '\')">' + res[i].Post_Title + '</a>',
+                            res[i].CompanyName,
+                           res[i].Post_Category, //+ '-' + res[i].Post_SubCategory,
+                           res[i].NoOfEmp + ' Nos',
+                           //res[i].Emp_experince + ' Years',
+                           //res[i].shifttimings,
+                           //res[i].FromTime + ' - ' + res[i].ToTime,
+                           //res[i].ContractPeriod,
+                           res[i].Country,
+                           //act
+            ]
+        }
+       
+        //console.log(dataSet)
+        table = $('#example2').DataTable({
+            destroy: true,
+            responsive: true,
+            language: {
+                searchPlaceholder: 'Search...',
+                sSearch: '',
+                lengthMenu: '_MENU_ items/page',
+            },
+            data: dataSet,
+            columns: [
+                { title: "Job Title" },
+                { title: "Company Name" },
+            { title: "Category" },
+            { title: "No of Emp" },
+             //{ title: "Experience" },
+           // { title: "Timings" },
+
+            //{ title: "Contract Period", },
+            { title: "Location", },
+             // { title: "Action", },
+            ],
+            buttons: {
+                buttons: [
+                    {
+                        text: 'Alert',
+                        action: function (e, dt, node, config) {
+                            alert('Activated!');
+                            this.disable(); // disable button
+                        }
+                    }
+                ]
+            }
+        });
+       
+    }
+
+    function getAppliedusers(jobid,ttl) {
+        $('#h3Text').text('List of users applied for the "'+ttl+'"')
+        dataSet = [];
+        $.ajax({
+            url: '/start/Start/GetAppliedUserbyJob',
+            type: 'GET',
+            data: { 'jobid': jobid },
+            contentType: 'application/json; charset=utf-8',
+            dataType: "json",
+            success: function (res) {
+                if (res.ResponseCode == "200") {
+                    bindusersdata(res.ResponseList.userdetails)
+                }
+
+                else {
+                    bindusersdata(dataSet)
+                }
+
+            },
+            error: function (err) {
+                bindusersdata(dataSet)
+            }
+        });
+    }
+    //Function used to bind the data to data table
+    var table2;
+    function bindusersdata(res) {
+        var url = window.location.href.split('/')[0]
+        for (var i = 0; i < res.length; i++) {
+            //var act = '<img src="' + url + '/img/edit.png" style="cursor:pointer">&nbsp;&nbsp;<img src="' + url + '/img/delete.png" onclick="deleteJob(\'' + res[i].Rec_ID + '\',\'N\')" style="cursor:pointer">'
+            dataSet[i] = [
+                res[i].FirstName + ' ' + res[i].LastName,
+                           res[i].UserID,
+                           res[i].Mobile,
+            ]
+        }
+        table2 = $('#tblusersdarta').DataTable({
+            destroy: true,
+            responsive: true,
+            language: {
+                searchPlaceholder: 'Search...',
+                sSearch: '',
+                lengthMenu: '_MENU_ items/page',
+            },
+            data: dataSet,
+            columns: [
+                { title: "Name" },
+            { title: "Email" },
+            { title: "Mobile" },
+            ],
+            buttons: {
+                buttons: [
+                    {
+                        text: 'Alert',
+                        action: function (e, dt, node, config) {
+                            //alert('Activated!');
+                            this.disable(); // disable button
+                        }
+                    }
+                ]
+            }
+        });
+    }
+
+</script>

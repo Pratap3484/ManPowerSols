@@ -1,0 +1,156 @@
+﻿
+@{
+    ViewBag.Title = "Contact";
+    Layout = "~/Views/Shared/_NoLoginLayoutPage.cshtml";
+}
+<div class="az-signin-wrapper">
+    <div class="az-card-signin">
+       <div style="text-align:center"> 
+           <div style="text-align:center">
+            <img src="/images/mps_logo_h.png" alt="">
+            </div>
+            
+        </div>
+        <div class="az-signin-header">
+           <div style="text-align:center"> <h2>Welcome <span id="ldluser"></span>!</h2>
+            <h4>Please sign in to continue</h4></div>
+
+            <form action="" method="post" id="frmlogin" name="frmlogin">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="text" id="txtuserid" name="txtuserid" class="form-control" placeholder="Enter your email" >
+                </div><!-- form-group -->
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="txtpwd" name="txtpwd" class="form-control" placeholder="Enter your password" autocomplete="off">
+                </div><!-- form-group -->
+                <div class="alert alert-danger" id="divError" style="display:none">
+                    <strong id="lblerrormsg"></strong>.
+                </div>
+                <button class="btn btn-az-primary btn-block" id="btn_signin" type="submit">Sign In</button>
+
+            </form>
+        </div><!-- az-signin-header -->
+        <div class="az-signin-footer">
+            <p><a href="~/Start/Start/ForgotPassword">Forgot password?</a></p>
+            <p>Don't have an account? <a href="~/Start/Start/Register">Create an Account</a></p>
+        </div><!-- az-signin-footer -->
+    </div><!-- az-card-signin -->
+</div>
+
+
+<script>
+    //alert(getUrlVars()["Tp"])
+    $(document).ready(function () {
+        var utype = getUrlVars()["Tp"];
+        if (utype == '1') {
+            $('#ldluser').text('Admin')
+        }
+        else if (utype == '2') {
+            $('#ldluser').text('Agent')
+        }
+        else if (utype == '3') {
+            $('#ldluser').text('Employer')
+        }
+        else if (utype == '4') {
+            $('#ldluser').text('User')
+        }
+    })
+    $("form[name='frmlogin']").validate({
+        // Specify validation rules
+        rules: {
+            // The key name on the left side is the name attribute
+            // of an input field. Validation rules are defined
+            // on the right side
+            txtuserid: "required",
+            txtpwd: "required",
+            
+        },
+        // Specify validation error messages
+        messages: {
+            txtuserid: "Please enter your mail id",
+            txtpwd: "Please enter password",
+           
+        },
+        // Make sure the form is submitted to the destination defined
+        // in the "action" attribute of the form when valid
+        submitHandler: function (form) {
+            form.submit();
+        }
+    });
+    $('#btn_signin').click(function (e) {
+        $('#divError').hide()
+        if ($('#txtuserid').val() != '' && $('#txtpwd').val()!='') {
+            e.preventDefault();
+            //$('#divLoader').modal('show');
+            var um = {};
+            um.emailid = $('#txtuserid').val();
+            um.password = $('#txtpwd').val();
+            um.usertype = getUrlVars()["Tp"];
+           
+            $.ajax({
+                url: '@Url.Action("Login", "Start")',
+                type: 'POST',
+                data: JSON.stringify(um),
+                contentType: 'application/json; charset=utf-8',
+                dataType: "json",
+                success: function (res) {
+                    //$('#divLoader').modal('hide');
+                    if (res.ResponseCode == "200") {
+                        debugger
+                        sessionStorage.setItem('usermailid', um.emailid)
+                        sessionStorage.setItem('name', res.ResponseList.userdetails[0].FirstName + ' ' + res.ResponseList.userdetails[0].LastName)
+                        sessionStorage.setItem('comapany', res.ResponseList.userdetails[0].PresentCompanyName == null ? '' : res.ResponseList.userdetails[0].PresentCompanyName)
+                        sessionStorage.setItem('usertype', um.usertype)
+                        sessionStorage.setItem('lastlogidetails', res.ResponseList.userdetails[0].LastLoginDateTime == null ? '   ' : res.ResponseList.userdetails[0].LastLoginDateTime)
+                        //alert(res.ResponseList.userdetails[0].LastLoginDateTime)
+                        var url = window.location.href.split('/')[0]
+                        if (um.usertype == '1') {
+                            
+                            //sessionStorage.setItem('usermailid', um.emailid)
+                            //sessionStorage.setItem('name', 'Admin')
+                            //sessionStorage.setItem('usertype', um.usertype)
+                            //sessionStorage.setItem('comapany', 'Admin Actions')
+                            window.location.href = url + '/Admin/AdDashboard/Index';
+                        }
+                        //else if (um.usertype == '2') {
+                        //    window.location.href = url + '/Agent/AgentDashboard/Index';
+                        //}
+                        else if (um.usertype == '3' || um.usertype == '2') {
+                            window.location.href = url + '/Employer/EmpDashboard/Index';
+                        }
+                        else if (um.usertype == '4') {
+                            window.location.href = url + '/User/UserDashboard/Index';
+                        }
+                    }
+                    else if (res.ResponseCode == "100") {
+                        $('#txtuserid').focus()
+                        $("input").val('')
+                        $('#divError').show()
+                        $('#lblerrormsg').text('Status: ' + res.ResponseCode + '. Messsage :' + res.ResponseMessage)
+                        //alert('Error : Status Code: ' + res.ResponseCode + '. Messsage' + res.ResponseMessage)
+                    }
+                    else {
+                            $('#txtuserid').focus()
+                            $("input").val('')
+                            $('#divError').show()
+                            $('#lblerrormsg').text('Status: ' + res.ResponseCode + '. Messsage :' + res.ResponseMessage)
+                    }
+                   
+                },
+                error: function (err) {
+                    sessionStorage.setItem('usermailid', um.emailid)
+                    sessionStorage.setItem('name', 'Admin')
+                    sessionStorage.setItem('usertype', um.usertype)
+                    sessionStorage.setItem('comapany', 'Admin Actions')
+                    var url = window.location.href.split('/')[0]
+                    if (um.usertype == '1') {
+                        window.location.href = url + '/Admin/AdDashboard';
+                        return false;
+                    }
+                    //$('#divLoader').modal('hide');
+                }
+            });
+        }
+    })
+</script>

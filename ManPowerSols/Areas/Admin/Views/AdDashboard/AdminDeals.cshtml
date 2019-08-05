@@ -1,0 +1,255 @@
+﻿
+@{
+    ViewBag.Title = "AdminDeals";
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+}
+<style>
+  
+    .dataTables_wrapper {
+        margin-top:10px;
+    }
+    .label-warning {
+    background-color: #f0ad4e;
+    display: inline;
+    padding: .2em .6em .3em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25em;
+
+}
+    </style>
+
+<div class="">
+    <div class="az-content-body">
+        <div class="row row-sm">
+            <div class="col-xl-12 mg-t-20">
+                <div class="card card-dashboard-twentyone">
+                    <div class="row no-gutters">
+                        <div class="col-md-12">
+                            <!--Div To show the dta grid-->
+                            <div class="card-body" id="divJobsgrid">
+                                <!-- <h6 class="az-content-label">My Profile</h6> -->
+                                <p>My Job Deals</p>
+                                <hr class="">
+                                <div class="modal-body pd-sm-40" style="padding:0 20px">
+                                    <div>
+                                        <div class="form-group" data-select2-id="8">
+                                            <table id="example2" class="table"></table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- row -->
+                    </div><!-- card -->
+                </div><!-- col -->
+            </div><!-- row -->
+        </div><!-- az-content-body -->
+        <!-- az-footer -->
+    </div><!-- az-content -->
+
+    <div id="mdlupdateJobStatus" class="modal" style="overflow:auto !important">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content modal-content-demo">
+                <div class="modal-header">
+                    <h6 class="modal-title">Update Deal Status</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row row-sm">
+                        <p id="lblopenings" hidden></p>
+                        <div class="col-md"><strong></strong></div>
+                        <div class="col-md"><strong></strong></div>
+                    </div>
+                    <br />
+                    <div class="row row-sm">
+                        <p style="display:none" id="lblRecId"></p>
+                        <p style="display:none" id="lblnoofemp"></p>
+                        <div class="col-md">
+                            <label>Number of Employees</label>
+                            <input type="text" id="txtnoofemps" name="txtnoofemps" class="form-control" placeholder="Enter No. of Employees" />
+                        </div>
+                        <div class="col-md">
+                            <label>Comments</label>
+                            <textarea id="tacomments" class="form-control"></textarea>
+                        </div>
+                        
+                    </div>
+                    <div class="row row-sm">
+                        <div class="col-md">
+                            <label>Other Message</label>
+                            <textarea id="taothermsg" class="form-control"></textarea>
+                        </div>
+                        <div class="col-md">
+                            <label>Status</label>
+                            <select class="form-control" id="ddlstatus">
+                                <option value="Initiated">Initiated</option>
+                                <option value="Pending">Pending</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="Deal Closed">Deal Closed</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-indigo" id="btnupdateJobStatus">Update</button>
+                    <button type="button" data-dismiss="modal" class="btn btn-outline-light">Close</button>
+                </div><!-- modal-body -->
+            </div>
+        </div><!-- modal-dialog -->
+    </div>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+
+<script src="~/lib/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="~/lib/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="~/lib/datatables.net-dt/js/dataTables.dataTables.min.js"></script>
+<script src="~/lib/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="~/lib/datatables.net-responsive-dt/js/responsive.dataTables.min.js"></script>
+<script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script>
+     var dataSet = []
+     $(document).ready(function () {
+         getuserdeals()
+     })
+     function getuserdeals() {
+         dataSet = [];
+         $.ajax({
+             url: '/Admin/AdDashboard/GetEmpAgentDeals',
+             type: 'GET',
+             data: { 'usrid': sessionStorage.getItem('usermailid'), 'rectype': getUrlVars()["Tp"] },
+             contentType: 'application/json; charset=utf-8',
+             dataType: "json",
+             success: function (res) {
+                 if (res.ResponseCode == "200") {
+                     bindjobsdata(res.ResponseList.joblist)
+                 }
+
+                 else {
+                     bindjobsdata(dataSet)
+                 }
+
+             },
+             error: function (err) {
+                 bindjobsdata(dataSet)
+             }
+         });
+     }
+     //Function used to bind the data to data table
+     var table;
+     function bindjobsdata(res) {
+        debugger
+         var url = window.location.href.split('/')[0]
+         for (var i = 0; i < res.length; i++) {
+             var ddl = '<span class="label label-warning" style="cursor:pointer" onclick="updateJobstatus(\'' + res[i].JobAplliedRecID + '\',\'' + res[i].NoOfEmp + '\',\'' + res[i].post_comments + '\',\'' + res[i].Other + '\',\'' + res[i].Access_status + '\')" >Update Status</span>'
+             //var act = '<img src="' + url + '/img/edit.png" style="cursor:pointer">&nbsp;&nbsp;<img src="' + url + '/img/delete.png" onclick="deleteJob(\'' + res[i].Rec_ID + '\',\'N\')" style="cursor:pointer">'
+             dataSet[i] = [
+                 //'<a href="#" style="cursor:pointer" onclick="jobfulldetails(\'' + res[i].Rec_ID + '\')">' + res[i].Post_Title + '</a>',
+                 res[i].Post_Title,
+                            res[i].CompanyName,
+                            res[i].NoOfEmp + ' Nos',
+
+                            res[i].Access_status,
+                            //res[i].FromTime + ' - ' + res[i].ToTime,
+                            res[i].JobAppliedDate,
+                            res[i].Country,
+                            ddl
+             ]
+         }
+         //console.log(dataSet)
+         table = $('#example2').DataTable({
+             destroy: true,
+             responsive: true,
+             language: {
+                 searchPlaceholder: 'Search...',
+                 sSearch: '',
+                 lengthMenu: '_MENU_ items/page',
+             },
+             data: dataSet,
+             columns: [
+                 { title: "Job Title" },
+             { title: "Company Name" },
+             { title: "Vacancies" },
+              { title: "Status" },
+            // { title: "Timings" },
+
+             { title: "Appllied On", },
+             { title: "Location", },
+               { title: "Action", },
+             ],
+             buttons: {
+                 buttons: [
+                     {
+                         text: 'Alert',
+                         action: function (e, dt, node, config) {
+                             //alert('Activated!');
+                             this.disable(); // disable button
+                         }
+                     }
+                 ]
+             }
+         });
+     }
+
+     function updateJobstatus(jid, count, cmnts, othrcomnts, sts) {
+         $('#lblRecId,#lblnoofemp').text(jid);
+         $('#txtnoofemps,#tacomments,#taothermsg,#ddlstatus').val();
+
+         $('#lblRecId').text(jid);
+         $('#lblnoofemp').text(count);
+         $('#txtnoofemps').val(count);
+         $('#tacomments').val(cmnts);
+         $('#taothermsg').val(othrcomnts);
+         $('#ddlstatus').val(sts);
+         $('#mdlupdateJobStatus').modal('show')
+     }
+     $('#btnupdateJobStatus').click(function () {
+         if (parseInt($('#txtnoofemps').val()) > parseInt($('#lblnoofemp').text())) {
+             alert('Given number of Employer are greater than the openings')
+             return false;
+         }
+         else {
+             var um = {};
+             um.RecID = $('#lblRecId').text();
+             um.NoOfEmp = $('#txtnoofemps').val() == '' ? '1' : $('#txtnoofemps').val();
+             //um.UserID = sessionStorage.getItem('usermailid');
+             um.post_comments = $('#tacomments').val();
+             //um.UserType = sessionStorage.getItem('usertype');
+             um.Other = $('#taothermsg').val();
+             um.Access_status = $('#ddlstatus').val();
+             console.log(um)
+             $.ajax({
+                 url: '/Admin/AdDashboard/UpdateAppliedJob',
+                 type: 'POST',
+                 data: JSON.stringify(um),
+                 contentType: 'application/json; charset=utf-8',
+                 dataType: "json",
+                 success: function (res) {
+                     if (res.ResponseCode == "200") {
+                         alert('Job Updated successfully')
+                         $('#mdlupdateJobStatus').modal('hide');
+                         getuserdeals()
+                     }
+
+                     else {
+                         alert(res.ResponseMessage)
+                         $('#mdlupdateJobStatus').modal('hide');
+                     }
+                 },
+                 error: function (err) {
+                     $('#mdlupdateJobStatus').modal('hide');
+
+                 }
+             });
+         }
+     })
+</script>
+

@@ -1,0 +1,200 @@
+﻿
+@{
+    ViewBag.Title = "ViewProfile";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<div class="az-content-body" style="padding:0 20px" id="divprofile">
+    <div class="row row-sm">
+        <div class="col-xl-12 mg-t-20">
+            <div class="card card-dashboard-twentyone">
+                <div class="row no-gutters">
+                    <div class="card-body col-md-12">
+                        <form id="frmsrc" method="post" name="frmsrc">
+                            <p>My Profile</p>
+                            <hr>
+                            <div class="col-md-6">
+                                <label>Personal details</label>
+                                <div class="form-group hdncls" data-select2-id="8">
+                                    <input type="hidden" id="txtuserid">
+                                    <input type="hidden" id="txtrecid">
+                                    <div class="form-group">
+                                        <img id="profileimg" height="60" width="60" style="border-radius:50px">
+                                        @*<input type="hidden" id="base64data" name="base64data" style="display:none">
+                                        <input type="file" id="flprofilepic" name="flprofilepic" style="display:inline-block">*@
+                                    </div><!-- form-group -->
+                                </div>
+                                <div class="form-group" data-select2-id="8">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="First Name" id="txtfname" name="txtfname">
+                                    </div><!-- form-group -->
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Last Name" id="txtlname" name="txtlname">
+                                </div><!-- form-group -->
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Email Address" id="txtemailid" name="txtemailid" />
+                                </div><!-- form-group -->
+                                <div class="form-group">
+                                    <input type="text" class="form-control numsonly" placeholder="Mobile Number" id="txtmobile" name="txtmobile">
+                                </div>
+                                <div class="form-group hdncls">
+                                    <input type="text" class="form-control numsonly" placeholder="Alternative Mobile Number" id="txtmobile2" name="txtmobile2">
+                                </div>
+                                <div class="form-group hdncls">
+                                    <input type="text" class="form-control" placeholder="Country Name" id="txtcountry" name="txtcountry" style="width:49%;display:inline-block" />
+                                    <input type="text" class="form-control" placeholder="State Name" id="txtstate" name="txtstate" style="width:49%;display:inline-block" />
+                                </div><!-- form-group -->
+                                <div class="form-group hdncls">
+                                    <input type="text" class="form-control" placeholder="City Name" id="txtcity" name="txtcity" style="width:49%;display:inline-block" />
+
+                                    <input type="text" class="form-control numsonly" maxlength="7" style="width:49%;display:inline-block" placeholder="Zip Code" id="txtzipcode" name="txtzipcode">
+                                </div>
+
+                            </div>
+                            <div class="col-md-6 hdncls">
+                                <label>Company and Experience details</label>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Present Company Name" id="txtpresentcompany" name="txtpresentcompany">
+                                </div>
+                                <input type="text" class="form-control" placeholder="Category" id="txtcategory" name="txtcategory" />
+
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Other Sector" style="display:none" id="txtothers" name="txtothers">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Designation" id="txtdesignation" name="txtdesignation" />
+                                </div><!-- form-group -->
+                                <div class="form-group">
+                                    <input type="text" class="form-control decimals" placeholder="Your Experience" id="txtexp" name="txtexp">
+                                </div><!-- form-group -->
+                                <div class="form-group">
+                                    <input type="text" class="form-control decimals" placeholder="Period of Working" id="txtperiodofworking" name="txtperiodofworking">
+                                </div>
+                                <!-- form-group -->
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Currency Type" style="width:39%;display:inline-block" id="txtcurrencytype" name="txtcurrencytype" />
+
+                                    <input type="text" class="form-control decimals" style="width:59%;display:inline-block" placeholder="Last Salary" id="txtlastsalary" name="txtlastsalary">
+                                </div>
+
+                                <div class="form-group">
+                                    <textarea class="form-control" placeholder="About Me" id="txtaboutme" name="txtaboutme"></textarea>
+                                </div><!-- form-group -->
+
+                            </div>
+                            <div class="col-sm-12">
+                                @*<textarea id="rteEditor" name="rteEditor"></textarea>*@
+                            </div>
+                            <div class="col-sm-12">
+                                &nbsp;
+                            </div>
+                            <div class="col-sm-12">
+                                <a href="../UserDashboard/UserProfile" class="btn-xs btn-primary" style="padding:5px" id="btneditprofile">
+                                    <img src="~/img/edit.png" style="cursor:pointer">
+                                    Edit Profile
+                                </a>&nbsp;&nbsp;
+                                <a href="#" class="btn-xs btn-primary" style="padding:5px" id="btnviewresume">
+                                    View Resume
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div><!-- row -->
+            </div><!-- card -->
+        </div><!-- col -->
+    </div><!-- row -->
+</div>
+<div class="az-content-body" style="padding:0 20px;display:none" id="divResume">
+
+</div>
+@*<link href="~/css/bootstrap.min.css" rel="stylesheet" />*@
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="~/MpsJs/CommonJs.js"></script>
+<style>
+    .form-control {
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        pointer-events: none;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        getUserprofile(sessionStorage.getItem("usermailid"))
+    })
+
+    function getUserprofile(userid) {
+        var up = {};
+        up.UserID = userid;
+        //up.UserID = 'prpdevobal@gmail.com';
+        $.ajax({
+            url: '/UserDashboard/GetUserProfile',
+            type: 'POST',
+            data: JSON.stringify(up),
+            contentType: 'application/json; charset=utf-8',
+            dataType: "json",
+            success: function (res) {
+                if (res.ResponseCode == "200") {
+                    $('.hdncls').show();
+                    bindProfile(res.ResponseList.userdetails)
+                }
+                else if (res.ResponseCode == "201") {
+                    bindProfile(res.ResponseList.userdetails)
+                    $('.hdncls').hide();
+                }
+                else if (res.ResponseCode == "100") {
+                    alert('something went wrong! Please try again.')
+                }
+                else {
+                    alert('Error : Status Code: ' + res.ResponseCode + '. Messsage' + res.ResponseMessage)
+                }
+            },
+            error: function (err) {
+
+            }
+        });
+    }
+
+    function bindProfile(data) {
+        $('#txtuserid').val(data[0].UserID);
+        $('#txtrecid').val(data[0].Rec_ID);
+        $('#txtfname').val(data[0].FirstName);
+        $('#txtlname').val(data[0].LastName);
+        $('#txtemailid').val(data[0].Email);
+        $('#txtmobile').val(data[0].Mobile);
+        $('#txtmobile2').val(data[0].Altenative_mobile);
+        $('#txtcountry').val(data[0].Country);
+        $('#txtstate').val(data[0].State);
+        $('#txtcity').val(data[0].City);
+        $('#txtzipcode').val(data[0].zipcode);
+        $('#txtpresentcompany').val(data[0].PresentCompanyName);
+        $("#txtcategory").val(data[0].Work_Sector);
+        $('#txtdesignation').val(data[0].Designation)
+        $('#txtexp').val(data[0].Experience);
+        $('#txtperiodofworking').val(data[0].PeriodOfWorking);
+        $('#txtcurrencytype').val(data[0].CurrencyType);
+        $('#txtlastsalary').val(data[0].Last_Salary);
+        $('#txtaboutme').val(data[0].AboutMe);
+        console.log(data[0].Resume)
+        $('#divResume').html(data[0].Resume);
+        $('#profileimg').attr('src', data[0].ImgPath == '' ? 'http://mps.manpowersupplier.net/img/admin.png' : data[0].ImgPath)
+
+    }
+    
+    //$('#btneditprofile').click(function (e) {
+    //    var url = window.location.href.split('/')[0]
+    //    window.location.href = url + '/User/UserDashboard/UserProfile?id=' + $('#txtrecid').val();
+
+    //})
+    $('#btnviewresume').click(function (e) {
+        $('#divResume').show();
+        $('#divprofile').hide();
+
+    })
+    $('#btnhideresume').click(function (e) {
+        $('#divResume').hide();
+        $('#divprofile').show();
+
+    })
+</script>

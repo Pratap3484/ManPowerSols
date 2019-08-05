@@ -1,0 +1,713 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-130582519-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-130582519-1');
+    </script>
+    <style>
+        .error{
+            color:red;
+        }
+    </style>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Twitter -->
+    @*<meta name="twitter:site" content="@themepixels">
+        <meta name="twitter:creator" content="@themepixels">*@
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="manpower">
+    <meta name="twitter:description" content="Responsive Bootstrap 4 Dashboard Template">
+    <meta name="twitter:image" content="http://themepixels.me/azia/img/azia-social.png">
+
+    <!-- Facebook -->
+    <meta property="og:url" content="http://themepixels.me/azia">
+    <meta property="og:title" content="manpower">
+    <meta property="og:description" content="Responsive Bootstrap 4 Dashboard Template">
+
+    <meta property="og:image" content="http://themepixels.me/azia/img/azia-social.png">
+    <meta property="og:image:secure_url" content="http://themepixels.me/azia/img/azia-social.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="600">
+
+    <!-- Meta -->
+    <meta name="description" content="Responsive Bootstrap 4 Dashboard Template">
+    <meta name="author" content="ThemePixels">
+
+    <title>ManPower Supplier - Singapore</title>
+    <link rel="icon" href="~/img/mps-logo_small.png" type="image/png" sizes="16x16">
+    <!-- vendor css -->
+    <link href="~/lib/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="~/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+    <link href="~/lib/typicons.font/typicons.css" rel="stylesheet">
+    <link href="~/lib/jqvmap/jqvmap.min.css" rel="stylesheet">
+
+    <!-- azia CSS -->
+    <link rel="stylesheet" href="~/css/manpower.css">
+    <!--JS Files-->
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/ionicons/ionicons.js"></script>
+    <script src="~/lib/jquery.flot/jquery.flot.js"></script>
+    <script src="~/lib/jquery.flot/jquery.flot.resize.js"></script>
+    <script src="~/lib/jqvmap/jquery.vmap.min.js"></script>
+    <script src="~/lib/jqvmap/maps/jquery.vmap.world.js"></script>
+    <script src="~/lib/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="~/MpsJs/CommonJs.js"></script>
+    <style>
+         .dataTables_wrapper {
+        margin-top:10px;
+    }
+    </style>
+</head>
+<body class="az-body az-body-sidebar az-body-dashboard-nine">
+
+    <div class="az-sidebar az-sidebar-sticky az-sidebar-indigo-dark">
+        <div class="az-sidebar-header">
+            <a href="../AdDashboard/Index" class="az-logo"><img src="~/img/mps-logo_small.png" alt=""></a>
+        </div><!-- az-sidebar-header -->
+        <div class="az-sidebar-loggedin">
+            <div class="az-img-user online"><img src="~/img/admin.png" alt=""></div>
+            <div class="media-body">
+                <h6 id="h2username"></h6>
+                <span class="cmpny"></span>
+            </div><!-- media-body -->
+        </div><!-- az-sidebar-loggedin -->
+        <div class="az-sidebar-body">
+            <ul class="nav">
+                <li class="nav-label">Main Menu</li>
+                <li class="nav-item active show">
+                    <a href="#" class="nav-link with-sub"><i class="typcn typcn-clipboard"></i>Dashboard</a>
+                    <ul class="nav-sub">
+                        <li class="nav-sub-item"><a href="~/Admin/AdDashboard/Index" class="nav-sub-link">OverView</a></li>
+                        <li class="nav-sub-item"><a href="~/Admin/EmpReqs/Index?Tp=3" class="nav-sub-link">Employers</a></li>
+                        <li class="nav-sub-item"><a href="~/Admin/AgentSources/Index?Tp=2" class="nav-sub-link">Agents</a></li>
+                        <li class="nav-sub-item"><a href="~/Admin/AdDashboard/Users" class="nav-sub-link">Registered Users</a></li>
+
+                    </ul>
+                </li><!-- nav-item -->
+                <li class="nav-item" style="display:none">
+                    <a href="" class="nav-link with-sub"><i class="typcn typcn-document"></i>Request</a>
+                    <ul class="nav-sub">
+                        <li class="nav-sub-item">
+                            <a href="app-mail.html" class="nav-sub-link">Employers Request</a>
+                        </li>
+                        <li class="nav-sub-item">
+                            <a href="app-chat.html" class="nav-sub-link">Agents Posting </a>
+                        </li>
+
+                    </ul>
+                </li><!-- nav-item -->
+                <li class="nav-item">
+                    <a href="" class="nav-link with-sub"><i class="typcn typcn-book"></i>Admin Deals</a>
+                    <ul class="nav-sub">
+                        <li class="nav-sub-item"><a href="~/Admin/AdDashboard/AdminDeals?Tp=3" class="nav-sub-link">Employers</a></li>
+                        <li class="nav-sub-item"><a href="~/Admin/AdDashboard/AdminDeals?Tp=2" class="nav-sub-link">Agents</a></li>
+
+                    </ul>
+                </li><!-- nav-item -->
+                <li class="nav-item">
+                    <a href="" class="nav-link with-sub"><i class="typcn typcn-book"></i>Settings</a>
+                    <ul class="nav-sub">
+                        <li class="nav-sub-item"><a href="~/Admin/AdDashboard/CreateAdmin" class="nav-sub-link">Create Admin</a></li>
+                        @*<li class="nav-sub-item"><a href="elem-accordion.html" class="nav-sub-link">Employers</a></li>
+                        <li class="nav-sub-item"><a href="elem-alerts.html" class="nav-sub-link">Agents</a></li>*@
+
+                    </ul>
+                </li><!-- nav-item -->
+
+
+            </ul><!-- nav -->
+        </div><!-- az-sidebar-body -->
+    </div><!-- az-sidebar -->
+    <div class="az-content az-content-dashboard-nine">
+        <div class="az-header az-header-dashboard-nine">
+            <div class="container-fluid">
+                <div class="az-header-left">
+                    <a href="" id="azSidebarToggle" class="az-header-menu-icon"><span></span></a>
+                </div><!-- az-header-left -->
+
+                <div class="az-header-right">
+                    <div class="az-header-message">
+                        <a href="app-chat.html"><i class="typcn typcn-messages"></i></a>
+                    </div><!-- az-header-message -->
+                    <div class="dropdown az-header-notification">
+                        <a href="" class="new"><i class="typcn typcn-bell"></i></a>
+                        <div class="dropdown-menu">
+                            <div class="az-dropdown-header mg-b-20 d-sm-none">
+                                <a href="" class="az-header-arrow"><i class="icon ion-md-arrow-back"></i></a>
+                            </div>
+                            <h6 class="az-notification-title">Notifications</h6>
+                            <p class="az-notification-text">You have 2 unread notification</p>
+                            <div class="az-notification-list">
+                                <div class="media new">
+                                    <div class="az-img-user"><img src="~/img/admin.png" alt=""></div>
+                                    <div class="media-body">
+                                        <p>Congratulate <strong>Socrates Itumay</strong> for work anniversaries</p>
+                                        <span>Mar 15 12:32pm</span>
+                                    </div><!-- media-body -->
+                                </div><!-- media -->
+                                <div class="media new">
+                                    <div class="az-img-user online"><img src="~/img/img3.jpg" alt=""></div>
+                                    <div class="media-body">
+                                        <p><strong>Joyce Chua</strong> just created a new blog post</p>
+                                        <span>Mar 13 04:16am</span>
+                                    </div><!-- media-body -->
+                                </div><!-- media -->
+                                <div class="media">
+                                    <div class="az-img-user"><img src="~/img/img4.jpg" alt=""></div>
+                                    <div class="media-body">
+                                        <p><strong>Althea Cabardo</strong> just created a new blog post</p>
+                                        <span>Mar 13 02:56am</span>
+                                    </div><!-- media-body -->
+                                </div><!-- media -->
+                                <div class="media">
+                                    <div class="az-img-user"><img src="~/img/img5.jpg" alt=""></div>
+                                    <div class="media-body">
+                                        <p><strong>Adrian Monino</strong> added new comment on your photo</p>
+                                        <span>Mar 12 10:40pm</span>
+                                    </div><!-- media-body -->
+                                </div><!-- media -->
+                            </div><!-- az-notification-list -->
+                            <div class="dropdown-footer"><a href="">View All Notifications</a></div>
+                        </div><!-- dropdown-menu -->
+                    </div><!-- az-header-notification -->
+                    <div class="dropdown az-profile-menu">
+                        <a href="" class="az-img-user"><img src="~/img/admin.png" alt=""></a>
+                        <div class="dropdown-menu">
+                            <div class="az-dropdown-header d-sm-none">
+                                <a href="" class="az-header-arrow"><i class="icon ion-md-arrow-back"></i></a>
+                            </div>
+                            <div class="az-header-profile">
+                                <div class="az-img-user">
+                                    <img src="~/img/admin.png" alt="">
+                                </div><!-- az-img-user -->
+                                <h6 id="h6username"></h6>
+                                <span class="cmpny"></span>
+                            </div><!-- az-header-profile -->
+
+                            <a href="~/Admin/AdProfile/Index" class="dropdown-item"><i class="typcn typcn-user-outline"></i> My Profile</a>
+                            <a href="~/Admin/AdProfile/Index" class="dropdown-item"><i class="typcn typcn-edit"></i> Edit Profile</a>
+                            <a href="~/Admin/AdProfile/Index" class="dropdown-item"><i class="typcn typcn-time"></i> Activity Logs</a>
+                            <a href="~/Admin/AdProfile/Index" class="dropdown-item"><i class="typcn typcn-cog-outline"></i> Account Settings</a>
+                            <a href="~/Admin/AdDashboard/ChangePassword" class="dropdown-item"><i class="typcn typcn-edit"></i>Change Password</a>
+                            <a href="~/Home/Index" class="dropdown-item"><i class="typcn typcn-power-outline"></i> Sign Out</a>
+                        </div><!-- dropdown-menu -->
+                    </div>
+                </div><!-- az-header-right -->
+            </div><!-- container -->
+        </div><!-- az-header -->
+        <div class="az-content-header">
+            <div class="az-content-header-top">
+                <div>
+                    <h2 class="az-content-title mg-b-5 mg-b-lg-8">Hi, welcome <span id="spnusername"></span>!</h2>
+                    <p class="mg-b-0">Your Super Admin.</p>
+                </div>
+                <div class="az-dashboard-date">
+                    <div class="date">
+                        <div id="lastlogindate"></div>
+                        <div>
+                            <span id="lastloginmonthyear"></span>
+                            <span id="lastloginday"></span>
+                        </div>
+                    </div><!-- az-dashboard-date -->
+                    <i class="icon ion-md-arrow-forward"></i>
+                    <div class="date">
+                        <div id="todaylogindate"></div>
+                        <div>
+                            <span id="todayloginmonthyear"></span>
+                            <span id="todayloginday"></span>
+                        </div>
+                    </div><!-- az-dashboard-date -->
+                </div><!-- az-dashboard-date -->
+            </div><!-- az-content-body-title -->
+            @RenderBody()
+        </div><!-- az-content-header -->
+        <!-- az-content-body -->
+        <div class="az-footer ht-40">
+            <div class="container-fluid pd-t-0-f ht-100p">
+                <span>&copy; 2019 ManPower Supplier</span>
+
+            </div><!-- container -->
+        </div><!-- az-footer -->
+
+    </div><!-- az-content -->
+
+    <div id="divLoader" class="modal fade" role="dialog" data-keyboard="false" data-backdrop="static" style="position: fixed; top: 45%;display:none">
+        <div class="modal-dialog  modal-sm" style="width: 100px; margin: 0 auto; height: 100px;">
+            <div>
+                <img src="~/img/loader.gif" />
+            </div>
+        </div>
+    </div>
+
+    <!-- LARGE MODAL -->
+    <div id="mdlUserProfile" class="modal">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content modal-content-demo">
+                <div class="modal-header">
+                    <h6 class="modal-title">My Profile</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                   
+                        <div class="row row-sm">
+                            <div class="col-md"><strong>&nbsp;</strong></div>
+                            <div class="col-md"><strong>Personal Details</strong></div>
+                            @*<div class="col-md"><strong>Professional Details</strong></div>*@
+                            <div class="col-md"><strong>Address</strong></div>
+                        </div>
+                   
+                        <div class="row row-sm">
+                            <div class="col-md" style="float:left">
+                                <img src="~/img/img10.jpg" id="profileimg" alt="Profile Image" style="height:100px;width:100px;">
+                            </div><!-- az-img-user -->
+                            <div class="col-md">
+                                <p id="txtname"></p>
+                                <p id="txtdesignation"></p>
+                                <p id="txtemail"></p>
+                                <p id="txtmobile"></p>
+                            </div>
+                            @*<div class="col-md">Marpoos Technologies</div>*@
+                            <div class="col-md">
+                                <p id="txtcity"></p>
+                                <p id="txtstate"></p>
+                                <p id="txtcountry"></p>
+                            </div>
+                        </div>
+
+                    </div><!-- modal-body -->
+                <div class="modal-footer">
+                    @*<button type="button" class="btn btn-indigo">Apply</button>*@
+                    <button type="button" data-dismiss="modal" class="btn btn-outline-light">Close</button>
+                </div>
+            </div>
+        </div><!-- modal-dialog -->
+    </div><!-- modal -->
+
+    <div id="mdlJobdetails" class="modal" style="overflow:auto !important">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content modal-content-demo">
+                <div class="modal-header">
+                    <h6 class="modal-title">Job Details</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row row-sm">
+                        <div class="col-md"><strong></strong></div>
+                        <div class="col-md"><strong></strong></div>
+                    </div>
+
+                    <div class="row row-sm">
+
+                        <div class="col-md">
+                            <p style="display:none" id="lblRecId"></p>
+                            <b>Job Title</b>
+                            <p id="lbljobtitle"></p>
+                            <b>Company Name</b>
+                            <p id="lblcompname"></p>
+                            <b>Sector</b>
+                            <p id="lblsector"></p>
+                            <b>No. of Openings</b>
+                            <p id="lblopenings"></p>
+                            <b>Experience</b>
+                            <p id="lblexp"></p>
+                            <b>Timings</b>
+                            <p id="lbltimings"></p>
+                        </div>
+                        <div class="col-md">
+                            <b>Contract Period</b>
+                            <p id="lblcontractperiod"></p>
+                            <b>Salary/Wage Details</b>
+                            <p id="lblwagedetails"></p>
+                            <b>Work Location</b>
+                            <p id="lblworklocation"></p>
+                            <b>Transport Facility</b>
+                            <p id="lbltransport"></p>
+                            <b>Posted On</b>
+                            <p id="lblposteddate"></p>
+                            <b>Address</b>
+                            <p id="lbladdress"></p>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row row-sm">
+                        <div class="col-md">
+                            <label>Number of Employees</label>
+                            <input type="text" id="txtnoofemps" name="txtnoofemps" class="form-control" placeholder="Enter No. of Employees" />
+                        </div>
+                        <div class="col-md">
+                            <label>Comments</label>
+                            <textarea id="tacomments" class="form-control"></textarea>
+                        </div>
+                        <div class="col-md">
+                            <label>Other Message</label>
+                            <textarea id="taothermsg" class="form-control"></textarea>
+                        </div>
+                        <div class="col-md">
+                            <label>Status</label>
+                            <select class="form-control" id="ddlstatus">
+                                <option value="Initiated">Initiated</option>
+                                <option value="Pending">Pending</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="Deal Closed">Deal Closed</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-indigo" id="btnApplyJobuser">Apply</button>
+                    <button type="button" data-dismiss="modal" class="btn btn-outline-light">Close</button>
+                </div><!-- modal-body -->
+            </div>
+        </div><!-- modal-dialog -->
+    </div>
+
+    <script src="~/js/manpower.js"></script>
+    <script src="~/js/dashboard.sampledata.js"></script>
+    <script type="text/javascript">
+    //click event to apply button doe the employer,agent and user
+    $('#btnApplyJobuser').click(function (e) {
+        if (parseInt($('#txtnoofemps').val()) > parseInt($('#lblopenings').text())) {
+            alert('Given number of Employer are greater than the openings')
+            return false;
+        }
+        else {
+            var um = {};
+            um.JobID = $('#lblRecId').text();
+            um.NoOfEmp = $('#txtnoofemps').val() == '' ? '1' : $('#txtnoofemps').val();
+            um.UserID = sessionStorage.getItem('usermailid');
+            um.post_comments = $('#tacomments').val();
+            um.UserType = sessionStorage.getItem('usertype');
+            um.Other = $('#taothermsg').val();
+            um.Access_status = $('#ddlstatus').val();
+            $.ajax({
+                url: '/start/Start/ApplyJob',
+                type: 'POST',
+                data: JSON.stringify(um),
+                contentType: 'application/json; charset=utf-8',
+                dataType: "json",
+                success: function (res) {
+                    var url = window.location.href.split('/')[0]
+                    if (res.ResponseCode == "200") {
+                        alert('Job applied successfully')
+                        $('#mdlJobdetails').modal('hide');
+                        window.location.href = url + '/Admin/AdDashboard/AdminDeals'
+                    }
+                    else {
+                        alert(res.ResponseMessage)
+                        $('#mdlJobdetails').modal('hide');
+                        window.location.href = url + '/Admin/AdDashboard/Index'
+                    }
+                },
+                error: function (err) {
+                    $('#mdlJobdetails').modal('hide');
+
+                }
+            });
+        }
+    })
+    </script>
+
+    <script>
+        $(function () {
+            'use strict'
+          
+            // showing modal with effect
+            $('.modal-effect').on('click', function (e) {
+                e.preventDefault();
+                var effect = $(this).attr('data-effect');
+                $('#mdlUserProfile').addClass(effect);
+            });
+
+            // hide modal with effect
+            $('#mdlUserProfile').on('hidden.bs.modal', function (e) {
+                $(this).removeClass(function (index, className) {
+                    //return (className.match (/(^|/s)effect-/S+/g) || []).join(' ');
+                });
+            });
+
+            $('.az-sidebar .with-sub').on('click', function (e) {
+                e.preventDefault();
+                $(this).parent().toggleClass('show');
+                $(this).parent().siblings().removeClass('show');
+            })
+
+            $(document).on('click touchstart', function (e) {
+                e.stopPropagation();
+
+                // closing of sidebar menu when clicking outside of it
+                if (!$(e.target).closest('.az-header-menu-icon').length) {
+                    var sidebarTarg = $(e.target).closest('.az-sidebar').length;
+                    if (!sidebarTarg) {
+                        $('body').removeClass('az-sidebar-show');
+                    }
+                }
+            });
+
+
+            $('#azSidebarToggle').on('click', function (e) {
+                e.preventDefault();
+
+                if (window.matchMedia('(min-width: 992px)').matches) {
+                    $('body').toggleClass('az-sidebar-hide');
+                } else {
+                    $('body').toggleClass('az-sidebar-show');
+                }
+            });
+
+            new PerfectScrollbar('.az-sidebar-body', {
+                suppressScrollX: true
+            });
+
+            /* ----------------------------------- */
+            /* Dashboard content */
+
+
+            $.plot('#flotChart1', [{
+                data: dashData1,
+                color: '#6f42c1'
+            }], {
+                series: {
+                    shadowSize: 0,
+                    lines: {
+                        show: true,
+                        lineWidth: 2,
+                        fill: true,
+                        fillColor: { colors: [{ opacity: 0 }, { opacity: 1 }] }
+                    }
+                },
+                grid: {
+                    borderWidth: 0,
+                    labelMargin: 0
+                },
+                yaxis: {
+                    show: false,
+                    min: 0,
+                    max: 100
+                },
+                xaxis: { show: false }
+            });
+
+            $.plot('#flotChart2', [{
+                data: dashData2,
+                color: '#007bff'
+            }], {
+                series: {
+                    shadowSize: 0,
+                    lines: {
+                        show: true,
+                        lineWidth: 2,
+                        fill: true,
+                        fillColor: { colors: [{ opacity: 0 }, { opacity: 1 }] }
+                    }
+                },
+                grid: {
+                    borderWidth: 0,
+                    labelMargin: 0
+                },
+                yaxis: {
+                    show: false,
+                    min: 0,
+                    max: 100
+                },
+                xaxis: { show: false }
+            });
+
+            $.plot('#flotChart3', [{
+                data: dashData3,
+                color: '#f10075'
+            }], {
+                series: {
+                    shadowSize: 0,
+                    lines: {
+                        show: true,
+                        lineWidth: 2,
+                        fill: true,
+                        fillColor: { colors: [{ opacity: 0 }, { opacity: 1 }] }
+                    }
+                },
+                grid: {
+                    borderWidth: 0,
+                    labelMargin: 0
+                },
+                yaxis: {
+                    show: false,
+                    min: 0,
+                    max: 100
+                },
+                xaxis: { show: false }
+            });
+
+            $.plot('#flotChart4', [{
+                data: dashData4,
+                color: '#00cccc'
+            }], {
+                series: {
+                    shadowSize: 0,
+                    lines: {
+                        show: true,
+                        lineWidth: 2,
+                        fill: true,
+                        fillColor: { colors: [{ opacity: 0 }, { opacity: 1 }] }
+                    }
+                },
+                grid: {
+                    borderWidth: 0,
+                    labelMargin: 0
+                },
+                yaxis: {
+                    show: false,
+                    min: 0,
+                    max: 100
+                },
+                xaxis: { show: false }
+            });
+
+            $.plot('#flotChart5', [{
+                data: dashData2,
+                color: '#00cccc'
+            }, {
+                data: dashData3,
+                color: '#007bff'
+            }, {
+                data: dashData4,
+                color: '#f10075'
+            }], {
+                series: {
+                    shadowSize: 0,
+                    lines: {
+                        show: true,
+                        lineWidth: 2,
+                        fill: false,
+                        fillColor: { colors: [{ opacity: 0 }, { opacity: 1 }] }
+                    }
+                },
+                grid: {
+                    borderWidth: 0,
+                    labelMargin: 20
+                },
+                yaxis: {
+                    show: false,
+                    min: 0,
+                    max: 100
+                },
+                xaxis: {
+                    show: true,
+                    color: 'rgba(0,0,0,.16)',
+                    ticks: [
+                      [0, ''],
+                      [10, '<span>Nov</span><span>05</span>'],
+                      [20, '<span>Nov</span><span>10</span>'],
+                      [30, '<span>Nov</span><span>15</span>'],
+                      [40, '<span>Nov</span><span>18</span>'],
+                      [50, '<span>Nov</span><span>22</span>'],
+                      [60, '<span>Nov</span><span>26</span>'],
+                      [70, '<span>Nov</span><span>30</span>'],
+                    ]
+                }
+            });
+
+            $.plot('#flotChart6', [{
+                data: dashData2,
+                color: '#6f42c1'
+            }, {
+                data: dashData3,
+                color: '#007bff'
+            }, {
+                data: dashData4,
+                color: '#00cccc'
+            }], {
+                series: {
+                    shadowSize: 0,
+                    stack: true,
+                    bars: {
+                        show: true,
+                        lineWidth: 0,
+                        fill: 0.85
+                        //fillColor: { colors: [ { opacity: 0 }, { opacity: 1 } ] }
+                    }
+                },
+                grid: {
+                    borderWidth: 0,
+                    labelMargin: 20
+                },
+                yaxis: {
+                    show: false,
+                    min: 0,
+                    max: 100
+                },
+                xaxis: {
+                    show: true,
+                    color: 'rgba(0,0,0,.16)',
+                    ticks: [
+                      [0, ''],
+                      [10, '<span>Nov</span><span>05</span>'],
+                      [20, '<span>Nov</span><span>10</span>'],
+                      [30, '<span>Nov</span><span>15</span>'],
+                      [40, '<span>Nov</span><span>18</span>'],
+                      [50, '<span>Nov</span><span>22</span>'],
+                      [60, '<span>Nov</span><span>26</span>'],
+                      [70, '<span>Nov</span><span>30</span>'],
+                    ]
+                }
+            });
+
+            $('#vmap').vectorMap({
+                map: 'world_en',
+                showTooltip: true,
+                backgroundColor: '#f8f9fa',
+                color: '#ced4da',
+                colors: {
+                    us: '#6610f2',
+                    gb: '#8b4bf3',
+                    ru: '#aa7df3',
+                    cn: '#c8aef4',
+                    au: '#dfd3f2'
+                },
+                hoverColor: '#222',
+                enableZoom: false,
+                borderOpacity: .3,
+                borderWidth: 3,
+                borderColor: '#fff',
+                hoverOpacity: .85
+            });
+
+        });
+    </script>
+    <script>
+        // Read a page's GET URL variables and return them as an associative array.
+        function getUrlVars() {
+            var vars = [], hash;
+            var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+            for (var i = 0; i < hashes.length; i++) {
+                hash = hashes[i].split('=');
+                vars.push(hash[0]);
+                vars[hash[0]] = hash[1];
+            }
+            return vars;
+        }
+        $(document).ready(function () {
+            if (sessionStorage.getItem("usermailid") == null) {
+                var url = window.location.href.split('/')[0]
+                window.location.href = url + '/Home/Index';
+            }
+            $('#spnusername,#h2username,#h6username').text(sessionStorage.getItem('name'))
+            $('.cmpny').text(sessionStorage.getItem('comapany'))
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,253 @@
+﻿@{
+    ViewBag.Title = "Users";
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+}
+
+<div class="">
+    <div class="az-content-body">
+        <div class="row row-sm">
+            <div class="col-xl-12 mg-t-20">
+                <div class="card card-dashboard-twentyone">
+                    <div class="row no-gutters">
+                        <div class="col-md-12">
+                            <div class="card-body">
+                                <!-- <h6 class="az-content-label">My Profile</h6> -->
+                                <p>List of Registered Users</p>
+                                <hr class="">
+                                <div class="modal-body pd-sm-40" style="padding:20px">
+                                    <div class="alert alert-success" id="divError" style="display:none">
+                                        <strong id="lblerrormsg"></strong>.
+                                    </div>
+                                    <div>
+                                        <div class="form-group" data-select2-id="8">
+                                                Filter By
+                                                <select class="form-control" data-select2-id="1" style="width:44%;display:inline-block" tabindex="-1" aria-hidden="true" id="ddlsearchusertype">
+                                                    <option label="Select Sector" data-select2-id="3"></option>
+                                                    <option value="User" data-select2-id="17">User</option>
+                                                    <option value="Agent" data-select2-id="17">Agent</option>
+                                                    <option value="Employer" data-select2-id="16">Employer</option>
+                                                </select>
+                                            <select class="form-control" data-select2-id="1" style="width:44%;display:inline-block" tabindex="-1" aria-hidden="true" id="ddlsearchcountry"></select>
+                                            </div>
+                                       
+                                        <table id="example2" class="table"></table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- row -->
+                </div><!-- card -->
+            </div><!-- col -->
+        </div><!-- row -->
+    </div><!-- az-content-body -->
+    <!-- az-footer -->
+</div><!-- az-content -->
+<script src="~/lib/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="~/lib/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="~/lib/datatables.net-dt/js/dataTables.dataTables.min.js"></script>
+<script src="~/lib/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="~/lib/datatables.net-responsive-dt/js/responsive.dataTables.min.js"></script>
+
+<script src="~/MpsJs/CommonJs.js"></script>
+<style>
+    .label-success {
+        background-color: #5cb85c;
+    }
+
+    .label-info {
+        background-color: #5bc0de;
+    }
+
+    .label-danger {
+        background-color: #d9534f;
+    }
+
+    .label {
+        display: inline;
+        padding: .2em .6em .3em;
+        font-weight: 700;
+        line-height: 1;
+        color: #fff;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: .25em;
+    }
+</style>
+<script>
+
+    new PerfectScrollbar('.az-sidebar-body', {
+        suppressScrollX: true
+    });
+    var dataSet = [];
+    $(document).ready(function () {     
+        getRegisteredUsers()
+        getcountrylist('ddlsearchcountry')
+    })
+    $('#ddlsearchusertype').change(function (e) {
+        table.columns(1).search(this.value).draw();
+    })
+    $('#ddlsearchcountry').change(function (e) {
+        table.columns(2).search($('#ddlsearchcountry :selected').text() == 'Select Country' ? '' : $('#ddlsearchcountry :selected').text()).draw();
+    })
+    function getRegisteredUsers() {
+        //$('#divLoader').modal('show');
+        dataSet = [];
+        var jp = {};
+        jp.UserID = sessionStorage.getItem('usermailid');
+        jp.RecordType = getUrlVars()["Tp"];
+        jp.RequestType = 'View'
+        $.ajax({
+            url: '@Url.Action("GetRegsiteredUsers", "AdDashboard")',
+            type: 'POST',
+            data: JSON.stringify(jp),
+            contentType: 'application/json; charset=utf-8',
+            dataType: "json",
+            success: function (res) {
+                if (res.ResponseCode == "200") {
+                    if (res.ResponseList.joblist.length > 0)
+                        binddata(res.ResponseList.joblist)
+                    else
+                        binddata(dataSet)
+                }
+                else if (res.ResponseCode == "100") {
+                    $('#divError').show(); setTimeout(function () { $('#divError').hide() }, 1500)
+                    $('#lblerrormsg').text('Status: ' + res.ResponseCode + '. Messsage :' + res.ResponseMessage)
+                    binddata(dataSet)
+                }
+                else {
+                    $('#divError').show(); setTimeout(function () { $('#divError').hide() }, 1500)
+                    $('#lblerrormsg').text('Status: ' + res.ResponseCode + '. Messsage :' + res.ResponseMessage)
+                }
+
+            },
+            error: function (err) {
+            }
+        });
+    }
+    //Function used to bind the data to data table
+    var table;
+    function binddata(res) {
+        for (var i = 0; i < res.length; i++) {
+            var lbl = '';
+
+            if (res[i].Status == 'Pending') {
+                lbl = '<a href="#" title="Approve" onclick="approveUser(\'' + res[i].emailid + '\',\'' + res[i].usertype + '\',\'Approved\')"><span class="label label-info">A</span></a>'
+                lbl = lbl + ' <a href="#" title="Reject" onclick="approveUser(\'' + res[i].emailid + '\',\'' + res[i].usertype + '\',\'Rejected\')"><span class="label label-success">R</span></a>'
+                lbl = lbl + ' <a href="#" title="Delete" onclick="approveUser(\'' + res[i].emailid + '\',\'' + res[i].usertype + '\',\'Deleted\')"><span class="label label-danger">D</span></a>'
+            }
+
+            else if (res[i].Status == 'Approved' || res[i].Status == 'Active') {
+                //lbl = '<a href="#" title="Approve" onclick="approveUser(\'' + res[i].emailid + '\',\'' + res[i].usertype + '\')"><span class="label label-info">A</span></a>'
+                lbl = lbl + ' <a href="#" title="Reject" onclick="approveUser(\'' + res[i].emailid + '\',\'' + res[i].usertype + '\',\'Rejected\')"><span class="label label-success">R</span></a>'
+                lbl = lbl + ' <a href="#" title="Delete" onclick="approveUser(\'' + res[i].emailid + '\',\'' + res[i].usertype + '\',\'Deleted\')"><span class="label label-danger">D</span></a>'
+            }
+            else if (res[i].Status == 'Rejected') {
+                lbl = '<a href="#" title="Approve" onclick="approveUser(\'' + res[i].emailid + '\',\'' + res[i].usertype + '\',\'Approved\')"><span class="label label-info">A</span></a>'
+                lbl = lbl + ' <a href="#" title="Delete"onclick="approveUser(\'' + res[i].emailid + '\',\'' + res[i].usertype + '\',\'Deleted\')" ><span class="label label-danger">D</span></a>'
+            }
+            dataSet[i] = [
+                           //res[i].firstname + ' ' + res[i].lastname,
+                           '<a href="#" title="Approve" onclick="GetUserProfile(\'' + res[i].emailid + '\')"><span>'+res[i].firstname + ' ' + res[i].lastname+'</span></a>',
+                           //res[i].emailid,
+                           //res[i].mobile,
+                           res[i].UserTyeDesc,
+                           //res[i].Status,
+                           res[i].Country,
+                           //'<a href="#" title="Accept" onclick="approveUser(\'' + res[i].emailid + '\',\'' + res[i].usertype + '\')"><i class="fa fa-check" style="color:green">Approve</i></a>',
+                          // '<a href="#" title="Accept" onclick="approveUser(\'' + res[i].emailid + '\',\'' + res[i].usertype + '\')"><span class="label label-success">Approve</span></a>',
+                          lbl,
+            ]
+        }
+        table=$('#example2').DataTable({
+            destroy: true,
+            responsive: true,
+            language: {
+                searchPlaceholder: 'Search...',
+                sSearch: '',
+                lengthMenu: '_MENU_ items/page',
+            },
+            data: dataSet,
+            columns: [{ title: "Name" },
+            //{ title: "Email" },
+            //{ title: "Contacct" },
+             { title: "Type" },
+            //{ title: "Status" },
+            { title: "Country" },
+            { title: "Action" },
+            ]
+        });
+
+    }
+
+    function approveUser(uid, utype, sts) {
+        // $('#divLoader').modal('show');
+        var um = {};
+        um.emailid = uid;
+        um.usertype = utype;
+        um.Status = sts;
+        $.ajax({
+            url: '@Url.Action("ApproveUser", "AdDashboard")',
+            type: 'POST',
+            data: JSON.stringify(um),
+            contentType: 'application/json; charset=utf-8',
+            dataType: "json",
+            success: function (res) {
+                $('#divError').show(); setTimeout(function () { $('#divError').hide() }, 1500)
+                $('#lblerrormsg').text('Status: ' + res.ResponseCode + '. Messsage :' + res.ResponseMessage)
+                if (res.ResponseCode == "200") {
+                    getRegisteredUsers();
+                }
+                else {
+                }
+                // $('#divLoader').modal('hide');
+            },
+
+            error: function (err) {
+                //$('#divLoader').modal('hide');
+            }
+        });
+    }
+
+    function GetUserProfile(userid,btns) {
+        var up = {};
+        up.UserID = userid;
+        //up.UserID = 'prpdevobal@gmail.com';
+        $.ajax({
+            url: '/User/UserDashboard/GetUserProfile',
+            type: 'POST',
+            data: JSON.stringify(up),
+            contentType: 'application/json; charset=utf-8',
+            dataType: "json",
+            success: function (res) {
+                if (res.ResponseCode == "200") {
+                    bindProfile(res.ResponseList.userdetails)
+                }
+                else if (res.ResponseCode == "201") {
+                    bindProfile(res.ResponseList.userdetails)
+                }
+                else if (res.ResponseCode == "100") {
+                    alert('something went wrong! Please try again.')
+                }
+                else {
+                    alert('Error : Status Code : ' + res.ResponseCode + '. Messsage : ' + res.ResponseMessage)
+                }
+            },
+            error: function (err) {
+
+            }
+        });
+    }
+
+    function bindProfile(data) {
+        $('#txtname').text(data[0].FirstName + ' ' + data[0].LastName);
+        $('#txtdesignation').html(data[0].Designation == null ? '' : data[0].Designation);
+        $('#txtemail').text(data[0].Email);
+        $('#txtmobile').text(data[0].Mobile);
+        $('#txtcity').text(data[0].City == null ? '' : data[0].City);
+        $('#txtstate').text(data[0].State == null ? '' : data[0].State);
+        $('#txtcountry').text(data[0].Country == null ? '' : data[0].Country);
+        //$('#profileimg').attr('src', data[0].ImgPath == '' || data[0].ImgPath == null ? 'http://mps.manpowersupplier.net/img/admin.png' : data[0].ImgPath)
+        $('#mdlUserProfile').modal('show')
+    }
+</script>

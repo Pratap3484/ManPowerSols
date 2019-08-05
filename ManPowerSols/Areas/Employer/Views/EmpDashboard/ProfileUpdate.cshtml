@@ -1,0 +1,308 @@
+﻿
+@{
+    ViewBag.Title = "ProfileUpdate";
+    Layout = "~/Views/Shared/_EmployerLayout.cshtml";
+}
+
+<div class="az-content-body">
+    <div class="row row-sm">
+        <div class="col-xl-12 mg-t-20">
+            <div class="card card-dashboard-twentyone">
+                <div class="row no-gutters">
+                    <div class="card-body col-md-12">
+                        <form id="frmsrc" method="post" name="frmsrc">
+                            <p>Profile Update</p>
+                            <hr>
+                            <div class="col-md-12">
+                                <input type="hidden" id="txtuserid">
+                                <input type="hidden" id="txtrecid">
+                                <label>Personal details</label>
+                                <div class="form-group" data-select2-id="8">
+                                    <div class="form-group">
+                                        <img id="profileimg" height="60" width="60" style="border-radius:50px">
+                                        <input type="hidden" id="base64data" name="base64data" style="display:none">
+                                        <input type="file" id="flprofilepic" name="flprofilepic" style="display:inline-block">
+                                    </div><!-- form-group -->
+                                </div>
+                                <div class="form-group" data-select2-id="8">
+                                    <div class="form-group">
+                                        <div class="row row-sm">
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control" placeholder="First Name" id="txtfname" name="txtfname" required="required">
+                                            </div><!-- form-group -->
+
+                                            <div class="col-sm-6">
+
+                                                <input type="text" class="form-control" placeholder="Last Name" id="txtlname" name="txtlname" required="required">
+                                            </div>
+                                        </div>
+                                    </div><!-- form-group -->
+                                    <div class="form-group">
+                                        <div class="row row-sm">
+                                            <div class="col-sm-4">
+                                                <input type="text" class="form-control" placeholder="Email Address" id="txtemailid" name="txtemailid" readonly />
+                                            </div><!-- form-group -->
+                                            <div class="col-sm-4">
+                                                <input type="text" class="form-control numsonly" placeholder="Mobile Number" id="txtmobile" name="txtmobile">
+                                            </div>
+
+                                            <div class="col-sm-4">
+                                                <input type="text" class="form-control numsonly" placeholder="Alternative Mobile Number" id="txtmobile2" name="txtmobile2">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="row row-sm">
+                                            <div class="col-sm-6">
+                                                <select class="form-control" data-select2-id="1" tabindex="-1" aria-hidden="true" id="ddlcountry" name="ddlcountry">
+                                                    <option label="Select Country" data-select2-id="3"></option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <select class="form-control" data-select2-id="1" tabindex="-1" aria-hidden="true" id="ddlstate" name="ddlstate">
+                                                    <option label="Select State" data-select2-id="3"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div><!-- form-group -->
+                                    <div class="form-group">
+                                        <div class="row row-sm">
+                                            <div class="col-sm-6">
+                                                <select class="form-control" data-select2-id="1" tabindex="-1" aria-hidden="true" id="ddlcity" name="ddlcity">
+                                                    <option label="Select State" data-select2-id="3"></option>
+                                                </select>
+                                            </div><div class="col-sm-6">
+
+                                                <input type="text" class="form-control numsonly" maxlength="7" placeholder="Zip Code" id="txtzipcode" name="txtzipcode">
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <label>Company and Experience details</label>
+                                    <div class="form-group">
+                                        <div class="row row-sm">
+                                            <div class="col-sm-4">
+                                                <input type="text" class="form-control" placeholder="Present Company Name" id="txtpresentcompany" name="txtpresentcompany">
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <select class="form-control" data-select2-id="1" tabindex="-1" aria-hidden="true" name="ddlcategory" id="ddlcategory">
+                                                    <option label="Select Sector" data-select2-id="3"></option>
+                                                    <option value="Marine" data-select2-id="17">Marine</option>
+                                                    <option value="Marine Crew" data-select2-id="17">Marine Crew</option>
+                                                    <option value="Hotel Crew" data-select2-id="17">Hotel Crew</option>
+                                                    <option value="Construction" data-select2-id="17">Construction</option>
+                                                    <option value="Process" data-select2-id="16">Process</option>
+                                                    <option value="Service" data-select2-id="17">Service</option>
+                                                    <option value="Office" data-select2-id="17">Office</option>
+                                                    <option value="Voyage" data-select2-id="19">Voyage</option>
+                                                    <option value="Riding Crew" data-select2-id="17">Riding Crew</option>
+                                                    <option value="Domestic Workers" data-select2-id="17">Domestic Workers</option>
+                                                    <option value="Offshore" data-select2-id="19">Offshore</option>
+                                                    <option value="Others" data-select2-id="19">Others</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <input type="text" class="form-control" placeholder="Other Sector" style="display:none" id="txtothers" name="txtothers" required="required">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row row-sm">
+                                            <div class="col-sm-4">
+                                                <input type="text" class="form-control" placeholder="Designation" id="txtdesignation" name="txtdesignation" />
+                                            </div><!-- form-group -->
+                                            <div class="col-sm-4">
+                                                <input type="text" class="form-control decimals" placeholder="Your Experience" id="txtexp" name="txtexp">
+                                            </div><!-- form-group -->
+                                            <div class="col-sm-4">
+                                                <input type="text" class="form-control decimals" placeholder="Period of Working" id="txtperiodofworking" name="txtperiodofworking">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- form-group -->
+                                    <div class="form-group">
+                                        <div class="row row-sm">
+                                            <div class="col-sm-6">
+                                                <select class="form-control" placeholder="Currency Type" id="txtcurrencytype" name="txtcurrencytype">
+                                                    <option label="Currency Type" data-select2-id="3"></option>
+                                                    <option value="$-SGD" data-select2-id="16">SGD</option>
+                                                    <option value="$-USD" data-select2-id="16">USD</option>
+                                                    <option value="$-AUD" data-select2-id="16">AUD</option>
+                                                    <option value="$-KWD" data-select2-id="16">KWD</option>
+                                                    <option value="$-IQD" data-select2-id="16">IQD</option>
+                                                    <option value="₹-INR" data-select2-id="17">INR</option>
+                                                    <option value="Rp-IDR" data-select2-id="17">IDR</option>
+                                                    <option value="₱-PHP" data-select2-id="17">PHP</option>
+                                                    <option value="RM-MYR" data-select2-id="17">MYR</option>
+                                                    <option value="€-Euro" data-select2-id="19">Euro</option>
+                                                </select>
+                                            </div><div class="col-sm-6">
+                                                <input type="text" class="form-control decimals" placeholder="Last Salary" id="txtlastsalary" name="txtlastsalary">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea class="form-control" placeholder="About Me" id="txtaboutme" name="txtaboutme"></textarea>
+                                    </div><!-- form-group -->
+
+                                </div>
+                                
+                                <div class="form-group">
+                                    <button class="btn btn-primary" id="btnPostResource" type="submit">Update Profile</button>
+                                </div>
+                        </form>
+
+                    </div><!-- row -->
+                </div><!-- card -->
+            </div><!-- col -->
+        </div><!-- row -->
+    </div><!-- row -->
+</div>
+
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+<script src="~/MpsJs/CommonJs.js"></script>
+
+<script>
+    document.getElementById("flprofilepic").addEventListener("change", readbase64File);
+    $('#ddlcategory').change(function () {
+        if ($(this).val() == 'Others')
+            $('#txtothers').show()
+        else
+            $('#txtothers').hide()
+    })
+    $(document).ready(function () {
+        getUserprofile(sessionStorage.getItem("usermailid"))
+        getcountrylist('ddlcountry')
+    })
+    $('#ddlcountry').change(function () {
+        getstatelist($(this).val(), 'ddlstate')
+    })
+    $('#ddlstate').change(function () {
+        getcitieslist($(this).val(), 'ddlcity')
+    })
+    function getUserprofile(userid) {
+        var up = {};
+        up.UserID = userid;
+        //up.UserID = 'prpdevobal@gmail.com';
+        $.ajax({
+            url: '/UserDashboard/GetUserProfile',
+            type: 'POST',
+            data: JSON.stringify(up),
+            contentType: 'application/json; charset=utf-8',
+            dataType: "json",
+            success: function (res) {
+                if (res.ResponseCode == "200") {
+                    $('.hdncls').show();
+                    bindProfile(res.ResponseList.userdetails)
+                }
+                else if (res.ResponseCode == "201") {
+                    bindProfile(res.ResponseList.userdetails)
+                    $('.hdncls').hide();
+                }
+                else if (res.ResponseCode == "100") {
+                    alert('something went wrong! Please try again.')
+                }
+                else {
+                    alert('Error : Status Code: ' + res.ResponseCode + '. Messsage' + res.ResponseMessage)
+                }
+            },
+            error: function (err) {
+
+            }
+        });
+    }
+    function bindProfile(data) {
+        $('#txtuserid').val(data[0].UserID);
+        $('#txtrecid').val(data[0].Rec_ID);
+        $('#txtfname').val(data[0].FirstName);
+        $('#txtlname').val(data[0].LastName);
+        $('#txtemailid').val(data[0].Email);
+        $('#txtmobile').val(data[0].Mobile);
+        $('#txtmobile2').val(data[0].Altenative_mobile);
+        if (data[0].Country != '' && data[0].Country != null) {
+            setTimeout(function () { $("#ddlcountry option:contains('" + data[0].Country + "')").attr('selected', 'selected'); getstatelist($("#ddlcountry :selected").val(), 'ddlstate'); }, 5000);
+            setTimeout(function () { $("#ddlstate option:contains('" + data[0].State + "')").attr('selected', 'selected'); getcitieslist($("#ddlstate :selected").val(), 'ddlcity'); }, 8000);
+            setTimeout(function () { $("#ddlcity option:contains('" + data[0].City + "')").attr('selected', 'selected') }, 10000);
+        }
+        $('#txtzipcode').val(data[0].zipcode);
+        $('#txtpresentcompany').val(data[0].PresentCompanyName);
+        $("#ddlcategory").val(data[0].Work_Sector);
+        $('#txtdesignation').val(data[0].Designation)
+        $('#txtexp').val(data[0].Experience);
+        $('#txtperiodofworking').val(data[0].PeriodOfWorking);
+        $('#txtcurrencytype').val(data[0].CurrencyType);
+        $('#txtlastsalary').val(data[0].Last_Salary);
+        $('#txtaboutme').val(data[0].AboutMe);
+        $('#base64data').val(data[0].ImgPath)
+        
+        $('#profileimg').attr('src', data[0].ImgPath == '' || data[0].ImgPath == null ? 'http://mps.manpowersupplier.net/img/admin.png' : data[0].ImgPath)
+    }
+    $('#btnPostResource').click(function (e) {
+        //alert("Valid: " + form.valid());
+        //if ($('#ddlcategory').val() != '' && $('#txtsubcat').val() != '' && $('#txtnoemps').val() != '' && $('#txtcompany').val() != '' && $('#txtempexp').val() != '' && $('#ddltimings').val() != '' && $('#ddlcontractperiod').val() != '' && $('#txtworkloc').val() != '' && $('#ddltrsprt').val() != '') {
+       // if (form.valid() == true) {
+            e.preventDefault();
+            // $('#divLoader').modal('show');
+            var jp = {};
+        //jp.UserID = sessionStorage.getItem('usermailid');
+            jp.UserID = ($('#txtuserid').val() == "" ? sessionStorage.getItem('usermailid') : $('#txtuserid').val());
+            jp.Rec_ID = ($('#txtrecid').val() == "" || $('#txtrecid').val() == null ? "0" : $('#txtrecid').val());
+            jp.FirstName = $('#txtfname').val();
+            jp.LastName = $('#txtlname').val();
+            jp.Mobile = $('#txtmobile').val();
+            jp.Email = $('#txtemailid').val();
+            jp.Country = ($('#ddlcountry :selected').text() == "Select Country" ? "" : $('#ddlcountry :selected').text());
+            jp.State = ($('#ddlstate :selected').text() == "Select State" || $('#ddlstate :selected').text() == null ? "" : $('#ddlstate :selected').text())
+            jp.City = ($('#ddlcity :selected').text() == "Select City" || $('#ddlcity :selected').text() == null ? "" : $('#ddlcity :selected').text())
+            jp.ZipCode = ($('#txtzipcode').val() == "" || $('#txtzipcode').val() == null ? "" : $('#txtzipcode').val());
+            jp.Designation = ($('#txtdesignation').val() == "" || $('#txtdesignation').val() == null ? "" : $('#txtdesignation').val()); 
+            jp.YearsOfExp = ($('#txtexp').val() == "" || $('#txtexp').val() == null ? "" : $('#txtexp').val());
+            jp.Experience = ($('#txtexp').val() == "" || $('#txtexp').val() == null ? "" : $('#txtexp').val()); 
+            jp.PresentCompanyName = ($('#txtpresentcompany').val() == "" || $('#txtpresentcompany').val() == null ? "" : $('#txtpresentcompany').val()); 
+            jp.PeriodOfWorking = ($('#txtperiodofworking').val() == "" || $('#txtperiodofworking').val() == null ? "" : $('#txtperiodofworking').val()); 
+            jp.Work_Sector = ($('#ddlcategory').val() == "" || $('#ddlcategory').val() == null ? "" : $('#ddlcategory').val()); 
+            jp.Last_Salary = ($('#txtlastsalary').val() == "" || $('#txtlastsalary').val() == null ? "" : $('#txtlastsalary').val()); 
+            jp.Altenative_mobile = ($('#txtmobile2').val() == "" || $('#txtmobile2').val() == null ? "" : $('#txtmobile2').val());
+            jp.AboutMe = ($('#txtaboutme').val() == "" || $('#txtaboutme').val() == null ? "" : $('#txtaboutme').val()); 
+            jp.Resume = '';
+            jp.UserType = sessionStorage.getItem('usertype');
+            jp.CurrencyType = ($('#txtcurrencytype').val() == "" || $('#txtcurrencytype').val() == null ? "" : $('#txtcurrencytype').val()); 
+            jp.ImgPath = $('#base64data').val();
+
+            $.ajax({
+                //url: '@Url.Action("UpdateUserProfile", "UserDashboard")',
+                url: '/User/UserDashboard/UpdateUserProfile',
+                type: 'POST',
+                processData: false,
+                data: JSON.stringify(jp),
+                contentType: 'application/json; charset=utf-8',
+                dataType: "json",
+                success: function (res) {
+                    if (res.ResponseCode == "200") {
+                        alert('success')
+                          var url = window.location.href.split('/')[0]
+                          window.location.href = url + '/Employer/EmpDashboard/MyProfile';
+                    }
+                    else if (res.ResponseCode == "100") {
+                        alert('something went wrong! Please try again.')
+                    }
+                    else {
+                        alert('Error : Status Code: ' + res.ResponseCode + '. Messsage' + res.ResponseMessage)
+                    }
+                },
+                error: function (err) {
+                }
+            });
+        //}
+    });
+
+</script>
+<style>
+    p.MsoNormal {
+        margin-left: 0 !important;
+    }
+</style>

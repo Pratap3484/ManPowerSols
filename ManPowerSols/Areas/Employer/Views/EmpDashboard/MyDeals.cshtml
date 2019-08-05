@@ -1,0 +1,131 @@
+﻿
+@{
+    ViewBag.Title = "MyDeals";
+    Layout = "~/Views/Shared/_EmployerLayout.cshtml";
+}
+
+
+<div class="">
+    <div class="az-content-body">
+        <div class="row row-sm">
+            <div class="col-xl-12 mg-t-20">
+                <div class="card card-dashboard-twentyone">
+                    <div class="row no-gutters">
+                        <div class="col-md-12">
+                            <!--Div To show the dta grid-->
+                            <div class="card-body" id="divJobsgrid">
+                                <!-- <h6 class="az-content-label">My Profile</h6> -->
+                                <p>My Job Deals</p>
+                                <hr class="">
+                                <div class="modal-body pd-sm-40" style="padding:0 20px">
+                                    <div>
+                                        <div class="form-group" data-select2-id="8">
+                                            <table id="example2" class="table"></table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- row -->
+                    </div><!-- card -->
+                </div><!-- col -->
+            </div><!-- row -->
+        </div><!-- az-content-body -->
+        <!-- az-footer -->
+    </div><!-- az-content -->
+</div>
+
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+
+<script src="~/lib/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="~/lib/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="~/lib/datatables.net-dt/js/dataTables.dataTables.min.js"></script>
+<script src="~/lib/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="~/lib/datatables.net-responsive-dt/js/responsive.dataTables.min.js"></script>
+
+
+<script src="~/MpsJs/CommonJs.js"></script>
+
+<script>
+     var dataSet = []
+     $(document).ready(function () {
+         getuserdeals()
+     })
+     function getuserdeals() {
+         dataSet = [];
+         $.ajax({
+             url: '/User/UserDashboard/GetUserAppliedJobs',
+             type: 'GET',
+             data: { 'usrid': sessionStorage.getItem('usermailid') },
+             contentType: 'application/json; charset=utf-8',
+             dataType: "json",
+             success: function (res) {
+                 if (res.ResponseCode == "200") {
+                     bindjobsdata(res.ResponseList.joblist)
+                 }
+
+                 else {
+                     bindjobsdata(dataSet)
+                 }
+
+             },
+             error: function (err) {
+                 bindjobsdata(dataSet)
+             }
+         });
+     }
+     //Function used to bind the data to data table
+     var table;
+     function bindjobsdata(res) {
+         var url = window.location.href.split('/')[0]
+         for (var i = 0; i < res.length; i++) {
+             //var act = '<img src="' + url + '/img/edit.png" style="cursor:pointer">&nbsp;&nbsp;<img src="' + url + '/img/delete.png" onclick="deleteJob(\'' + res[i].Rec_ID + '\',\'N\')" style="cursor:pointer">'
+             dataSet[i] = [
+                 //'<a href="#" style="cursor:pointer" onclick="jobfulldetails(\'' + res[i].Rec_ID + '\')">' + res[i].Post_Title + '</a>',
+                 res[i].Post_Title,
+                            res[i].CompanyName,
+                            res[i].NoOfEmp + ' Nos',
+
+                            res[i].Access_status,
+                            //res[i].FromTime + ' - ' + res[i].ToTime,
+                            res[i].JobAppliedDate,
+                            res[i].Country,
+                            //act
+             ]
+         }
+         //console.log(dataSet)
+         table = $('#example2').DataTable({
+             destroy: true,
+             responsive: true,
+             language: {
+                 searchPlaceholder: 'Search...',
+                 sSearch: '',
+                 lengthMenu: '_MENU_ items/page',
+             },
+             data: dataSet,
+             columns: [
+                 { title: "Job Title" },
+             { title: "Company Name" },
+             { title: "Vacancies" },
+              { title: "Status" },
+            // { title: "Timings" },
+
+             { title: "Appllied On", },
+             { title: "Location", },
+               //{ title: "Action", },
+             ],
+             buttons: {
+                 buttons: [
+                     {
+                         text: 'Alert',
+                         action: function (e, dt, node, config) {
+                             //alert('Activated!');
+                             this.disable(); // disable button
+                         }
+                     }
+                 ]
+             }
+         });
+     }
+</script>
+
+

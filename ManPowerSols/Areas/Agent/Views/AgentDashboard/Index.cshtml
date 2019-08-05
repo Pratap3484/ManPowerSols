@@ -1,0 +1,150 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AgentLayout.cshtml";
+}
+
+<div class="nav-wrapper">
+    <nav class="nav az-nav-line">
+        <a href="#" class="nav-link active">Overview</a>
+        @*<a href="#" class="nav-link">Deals</a>
+        <a href="#" class="nav-link">Reviews</a>
+        <a href="#" class="nav-link">Notifications</a>*@
+    </nav>
+</div><!-- nav-wrapper -->
+<div class="az-content-body">
+
+    <div class="row row-sm">
+        <div class="col-sm-6 col-xl-3">
+            <div class="card card-dashboard-twentytwo">
+                <div class="media">
+                    <div class="media-icon bg-purple"><i class="typcn typcn-chart-line-outline"></i></div>
+                    <div class="media-body">
+                        <h6>32.53% <small class="down">-0.5%</small></h6>
+                        <span>Admin Requests</span>
+                    </div>
+                </div>
+                <div class="chart-wrapper">
+                    <div id="flotChart1" class="flot-chart"></div>
+                </div><!-- chart-wrapper -->
+            </div><!-- card -->
+        </div><!-- col -->
+        <div class="col-sm-6 col-xl-3 mg-t-20 mg-sm-t-0">
+            <div class="card card-dashboard-twentytwo">
+                <div class="media">
+                    <div class="media-icon bg-primary"><i class="typcn typcn-chart-line-outline"></i></div>
+                    <div class="media-body">
+                        <h6>7,682 <small class="up">+0.1%</small></h6>
+                        <span>Employer Requests</span>
+                    </div>
+                </div>
+                <div class="chart-wrapper">
+                    <div id="flotChart2" class="flot-chart"></div>
+                </div><!-- chart-wrapper -->
+            </div><!-- card -->
+        </div><!-- col-3 -->
+        <div class="col-sm-6 col-xl-3 mg-t-20 mg-xl-t-0">
+            <div class="card card-dashboard-twentytwo">
+                <div class="media">
+                    <div class="media-icon bg-pink"><i class="typcn typcn-chart-line-outline"></i></div>
+                    <div class="media-body">
+                        <h6>5 <small class="down">Today</small></h6>
+                        <span>User Requests</span>
+                    </div>
+                </div>
+                <div class="chart-wrapper">
+                    <div id="flotChart3" class="flot-chart"></div>
+                </div><!-- chart-wrapper -->
+            </div><!-- card -->
+        </div><!-- col -->
+        
+        <div class="col-xl-9 mg-t-20">
+            <div class="card card-dashboard-twentyone">
+              <div class="row no-gutters" style="height:500px">
+                
+               
+              </div><!-- row -->
+            </div><!-- card -->
+          </div><!-- col -->
+        <div class="col-md-4 col-xl-3 mg-t-20">
+            <div class="card card-body card-dashboard-twentythree ht-xl-100p">
+                <h6 class="card-title tx-14 mg-b-10">Manage Deals</h6>
+                <p class="mg-b-15">The percentage of manages the empoloyers request and agents posting.</p>
+
+                <div class="d-flex flex-column align-items-center mg-b-25">
+                    <div>
+                        <div class="az-donut-chart chart1">
+                            <div class="slice one"></div>
+                            <div class="slice two"></div>
+                            <div class="chart-center">
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- d-flex -->
+
+                <div class="row row-sm">
+                    <div class="col-6">
+                        <label><span class="bg-indigo"></span> Employers</label>
+                        <h5>67%</h5>
+                    </div>
+                    <div class="col-6">
+                        <label><span class="bg-gray-500"></span> Agents</label>
+                        <h5>89%</h5>
+                    </div>
+                </div><!-- row -->
+            </div>
+        </div>
+        <div class="col-md-8 col-xl-6 mg-t-20">
+            <div class="card card-dashboard-audience-metrics ht-md-100p">
+                <div class="card-header">
+                    <h6 class="card-title">Users Metrics</h6>
+                    <p class="mg-b-15">Measures your user's sessions and page views metrics to your website for this month.</p>
+                </div><!-- card-header -->
+                <div class="card-body">
+                    <div>
+                        <h4>120,500</h4>
+                        <label><span class="bg-primary"></span>Users</label>
+                    </div>
+                    <div>
+                        <h4>360,108</h4>
+                        <label><span class="bg-teal"></span>Page Views</label>
+                    </div>
+                    <div>
+                        <h4>150,712</h4>
+                        <label><span class="bg-pink"></span>Sessions</label>
+                    </div>
+                </div><!-- card-top-content -->
+                <div class="chart-wrapper">
+                    <div id="flotChart5" class="flot-chart"></div>
+                </div><!-- chart-wrapper -->
+            </div><!-- card -->
+        </div><!-- col -->
+        <div class="col-xl-6 mg-t-20">
+            <div class="card card-dashboard-audience-metrics">
+                <div class="card-header">
+                    <h6 class="card-title">Traffic Sources</h6>
+                    <p class="mg-b-15">Measures your user's sources that generate traffic metrics to your website for this month.</p>
+                </div><!-- card-header -->
+                <div class="card-body">
+                    <div>
+                        <h4>86,376</h4>
+                        <label><span class="bg-purple"></span>Organic</label>
+                    </div>
+                    <div>
+                        <h4>25,001</h4>
+                        <label><span class="bg-primary"></span>Direct</label>
+                    </div>
+                    <div>
+                        <h4>12,909</h4>
+                        <label><span class="bg-teal"></span>Referral</label>
+                    </div>
+                </div><!-- card-top-content -->
+                <div class="chart-wrapper">
+                    <div id="flotChart6" class="flot-chart"></div>
+                </div><!-- chart-wrapper -->
+            </div><!-- card -->
+        </div><!-- col -->
+    </div><!-- row -->
+</div>
+

@@ -1,17 +1,48 @@
-﻿@{
+@{
     ViewBag.Title = "Contact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>
+<script type="text/javascript" src="~/js/gmap3.min.js"></script>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+				<!-- map 
+					================================================== -->
+				<div id="map"></div>
+				<!-- map -->
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+				<!-- contact section 
+					================================================== -->
+				<section class="contact-section">
+					<div class="container">
+						<div class="col-md-4">
+							<div class="contact-info">
+								<h2>Contact Info</h2>
+								<p>You can contact or visit us in our office from Monday to Friday from 8:00 - 17:00</p>
+								<ul class="information-list">
+									<li><i class="fa fa-map-marker"></i><span>137 Tuas View Square<br>
+
+Singapore - 637745</span></li>
+									<li><i class="fa fa-phone"></i><span>+65 6906 9710</span><span>+65 6906 9710</span></li>
+									<li><i class="fa fa-envelope-o"></i><a href="#">info@manpowersupplier.net</a></li>
+								</ul>						
+							</div>
+						</div>
+						<div class="col-md-8">
+							<form id="contact-form">
+								<h2>Send us a message</h2>
+								<div class="row">
+									<div class="col-md-6">
+										<input name="name" id="name" type="text" placeholder="Name">
+									</div>
+									<div class="col-md-6">
+										<input name="mail" id="mail" type="text" placeholder="Email">
+									</div>
+								</div>
+								<textarea name="comment" id="comment" placeholder="Message"></textarea>
+								<input type="submit" id="submit_contact" value="Send Message">
+								<div id="msg" class="message"></div>
+							</form>
+						</div>
+					</div>
+				</section>
+				<!-- End contact section -->

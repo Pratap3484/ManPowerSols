@@ -1,0 +1,356 @@
+﻿
+@{
+    ViewBag.Title = "EmpJobs";
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+}
+
+
+<div class="">
+    <div class="az-content-body">
+
+        <div class="row row-sm">
+            <div class="col-xl-12 mg-t-20">
+                <div class="card card-dashboard-twentyone">
+                    <div class="row no-gutters">
+                        <div class="col-md-12">
+                            <div class="card-body">
+                                <!-- <h6 class="az-content-label">My Profile</h6> -->
+                                <p>Requirement from Employers</p>
+                                <hr class="">
+                                <div class="alert alert-success" id="divError" style="display:none">
+                                    <strong id="lblerrormsg"></strong>.
+                                </div>
+                                <div class="modal-body pd-sm-40" style="padding:20px">
+
+
+                                    <div class="form-group tabcontent" data-select2-id="8" id="">
+                                        Filter Jobs by
+                                        <select class="form-control" data-select2-id="1" style="width:40%;display:inline-block" tabindex="-1" aria-hidden="true" id="ddlsearchcategory">
+                                            <option label="Select Sector" data-select2-id="3"></option>
+                                            <option value="Marine" data-select2-id="17">Marine</option>
+                                            <option value="Marine Crew" data-select2-id="17">Marine Crew</option>
+                                            <option value="Hotel Crew" data-select2-id="17">Hotel Crew</option>
+                                            <option value="Construction" data-select2-id="17">Construction</option>
+                                            <option value="Process" data-select2-id="16">Process</option>
+                                            <option value="Service" data-select2-id="17">Service</option>
+                                            <option value="Office" data-select2-id="17">Office</option>
+                                            <option value="Voyage" data-select2-id="19">Voyage</option>
+                                            <option value="Riding Crew" data-select2-id="17">Riding Crew</option>
+                                            <option value="Domestic Workers" data-select2-id="17">Domestic Workers</option>
+                                            <option value="Offshore" data-select2-id="19">Offshore</option>
+                                            <option value="Others" data-select2-id="19">Others</option>
+                                        </select>
+                                        <select class="form-control" data-select2-id="1" style="width:40%;display:inline-block" tabindex="-1" aria-hidden="true" id="ddlsearchcountry">
+                                            <option label="Select Country" data-select2-id="3"></option>
+                                        </select>
+                                        @*<select class="form-control" data-select2-id="1" style="width:19%;display:inline-block" tabindex="-1" aria-hidden="true" id="ddlsearchstate">
+                                                <option label="Select State" data-select2-id="3"></option>
+
+                                            </select>
+                                            <select class="form-control" style="width:19%;display:inline-block" data-select2-id="1" tabindex="-1" aria-hidden="true" id="ddlsearchcity">
+                                                <option label="Select City" data-select2-id="3"></option>
+                                            </select>*@
+
+                                        <div class="tab" style="margin-top:10px">
+                                            <button class="tablinks active" onclick="openCity(event, 'divpublic')" id="defaultOpen">Public</button>
+                                            <button class="tablinks" onclick="openCity(event, 'divprivate')">Private</button>
+                                        </div>
+
+                                        <table id="example2" class="table"></table>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div><!-- row -->
+                </div><!-- card -->
+            </div><!-- col -->
+        </div><!-- row -->
+    </div><!-- az-content-body -->
+    <!-- az-footer -->
+</div><!-- az-content -->
+<script src="~/lib/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="~/lib/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="~/lib/datatables.net-dt/js/dataTables.dataTables.min.js"></script>
+<script src="~/lib/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="~/lib/datatables.net-responsive-dt/js/responsive.dataTables.min.js"></script>
+<style>
+    /*td{
+        display:inline-block !important;
+    }*/
+    .dataTables_wrapper {
+        margin-top: 10px;
+    }
+
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 54px;
+        height: 24px;
+    }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 21px;
+            width: 21px;
+            left: 4px;
+            bottom: 2px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+    input:checked + .slider {
+        background-color: #2196F3;
+    }
+
+    input:focus + .slider {
+        box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked + .slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(26px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+        border-radius: 34px;
+    }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+    /* Style the tab */
+    .tab {
+        overflow: hidden;
+        border: 1px solid #ccc;
+        background-color: #f1f1f1;
+    }
+
+        /* Style the buttons inside the tab */
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 17px;
+        }
+
+            /* Change background color of buttons on hover */
+            .tab button:hover {
+                background-color: #ddd;
+            }
+
+            /* Create an active/current tablink class */
+            .tab button.active {
+                background-color: #ccc;
+            }
+
+    /* Style the tab content */
+    .tabcontent {
+        padding: 6px 12px;
+        border: 1px solid #ccc;
+        border-top: none;
+    }
+
+    /* Style the close button */
+    .topright {
+        float: right;
+        cursor: pointer;
+        font-size: 28px;
+    }
+
+        .topright:hover {
+            color: red;
+        }
+
+    .tablinks {
+        width: 50%;
+    }
+</style>
+
+<script src="~/MpsJs/CommonJs.js"></script>
+<script>
+    new PerfectScrollbar('.az-sidebar-body', {
+        suppressScrollX: true
+    });
+    var dataSet = [];
+    $(document).ready(function () {
+        getcountrylist('ddlsearchcountry')
+        getAgentPosts('Public')
+    })
+    $('#ddlsearchcategory').change(function (e) {
+        table.columns(1).search(this.value).draw();
+    })
+    $('#ddlsearchcountry').change(function (e) {
+        table.columns(7).search(this.value).draw();
+    })
+
+    function getAgentPosts(type) {
+        //$('#divLoader').modal('show');
+        var jp = {};
+        jp.UserID = sessionStorage.getItem('usermailid');
+        jp.RecordType = getUrlVars()["Tp"];
+        jp.Access_status = type
+        $.ajax({
+            url: '@Url.Action("GetEmpPostsbyStatus", "AdDashboard")',
+            type: 'POST',
+            data: JSON.stringify(jp),
+            contentType: 'application/json; charset=utf-8',
+            dataType: "json",
+            success: function (res) {
+                dataSet = [];
+                if (res.ResponseCode == "200") {
+                    binddata(res.ResponseList.joblist)
+                }
+                else if (res.ResponseCode == "100") {
+                    $('#lblerrormsg').text('Status: ' + res.ResponseCode + '. Messsage :' + res.ResponseMessage)
+                    $('#divError').show(); setTimeout(function () { $('#divError').hide() }, 1500)
+                    //alert('Error : Status Code: ' + res.ResponseCode + '. Messsage' + res.ResponseMessage)
+                    binddata(dataSet)
+                }
+                else if (res.ResponseCode == '') {
+                    binddata(dataSet)
+                }
+                else if (res.ResponseCode == null) {
+                    binddata(dataSet)
+                }
+                else {
+                    $('#lblerrormsg').text('Status: ' + res.ResponseCode + '. Messsage :' + res.ResponseMessage)
+                    $('#divError').show(); setTimeout(function () { $('#divError').hide() }, 1500)
+                   // alert('Error : Status Code: ' + res.ResponseCode + '. Messsage' + res.ResponseMessage)
+                }
+               // $('#divLoader').modal('hide');
+            },
+            error: function (err) {
+                //$('#divLoader').modal('hide');
+            }
+        });
+    }
+    //Function used to bind the data to data table
+    var table;
+    function binddata(res) {
+        console.log(res)
+        for (var i = 0; i < res.length; i++) {
+            var tog = '';
+            if (res[i].Access_status=='Private')
+                tog = '<label class="switch"><input type="checkbox" onchange="updatestatus(\'' + res[i].Rec_ID + '\',\'' + res[i].RecordType + '\',\'Public\')"><span class="slider round"></span></label>'
+                 //tog = '<div class="switch-field"><input type="radio" id="radio-one" name="switch-one" value="yes" checked="checked"><label for="radio-one">Private</label><input type="radio" id="radio-two" name="switch-one" value="no" /><label for="radio-two">Public</label></div>'
+            else if (res[i].Access_status == 'Public')
+                 //tog = '<div class="switch-field"><input type="radio" id="radio-one" name="switch-one" value="yes" /><label for="radio-one">Private</label><input type="radio" id="radio-two" name="switch-one" value="no" checked="checked"/><label for="radio-two">Public</label></div>'
+                tog = '<label class="switch"><input type="checkbox" chacked onchange="updatestatus(\'' + res[i].Rec_ID + '\',\'' + res[i].RecordType + '\',\'Private\')"><span class="slider round"></span></label>'
+            dataSet[i] = [
+                             res[i].CompanyName,
+                           res[i].Post_Category ,//+ '-' + res[i].Post_SubCategory,
+                           res[i].NoOfEmp + ' Nos',
+                           res[i].Emp_experince + ' Years',
+                           res[i].shifttimings,
+                           res[i].ContractPeriod + 'Months',
+                           res[i].Country,
+                           tog,
+                           //res.ResponseList[i].TransaposrtFacility,
+                           //res.ResponseList.Access_status,
+            ]
+        }
+        table=$('#example2').DataTable({
+            destroy: true,
+            responsive: true,
+            language: {
+                searchPlaceholder: 'Search...',
+                sSearch: '',
+                lengthMenu: '_MENU_ items/page',
+            },
+            data: dataSet,
+            columns: [{ title: "Company Name" },
+            { title: "Category" },
+            { title: "No of Emp" },
+             { title: "Experience" },
+            { title: "Timings" },
+            { title: "Contract Period", },
+            { title: "Location" },
+            { title: ($('.tablinks.active').text() == 'Private' ? "Make Public" : "Make Private") },
+            ],
+        });
+
+    }
+    function updatestatus(recid,rectype,ressts) {
+        //$('#divLoader').modal('show');
+        var um = {};
+        um.Rec_ID = recid;
+        um.UserID = 'ADMIN';
+        um.RecordType = getUrlVars()["Tp"];
+        um.Access_status = ressts;
+        $.ajax({
+            url: '@Url.Action("UpdateJobAccess", "AdDashboard")',
+            type: 'POST',
+            data: JSON.stringify(um),
+            contentType: 'application/json; charset=utf-8',
+            dataType: "json",
+            success: function (res) {
+                if (res.ResponseCode == "200") {
+                    $('#lblerrormsg').text('Status: ' + res.ResponseCode + '. Messsage :' + res.ResponseMessage)
+                    $('#divError').show(); setTimeout(function () { $('#divError').hide() }, 1500)
+                    if (ressts == 'Public') {
+                        setTimeout( getAgentPosts('Private'),1600)
+                    }
+                    else if (ressts == 'Private') {
+                        setTimeout(getAgentPosts('Public'), 1600)
+
+                    }
+                }
+                else {
+                }
+                //$('#divLoader').modal('hide');
+            },
+            error: function (err) {
+               // $('#divLoader').modal('hide');
+            }
+        });
+    }
+
+    function openCity(evt, cityName) {
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        evt.currentTarget.className += " active";
+        if(cityName=='divpublic')
+            getAgentPosts('Public')
+        else if (cityName == 'divprivate')
+            getAgentPosts('Private')
+    }
+        $("#myInput").on("change", function () {
+            var value = $(this).val().toLowerCase();
+            $("#example2 tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+
+</script>

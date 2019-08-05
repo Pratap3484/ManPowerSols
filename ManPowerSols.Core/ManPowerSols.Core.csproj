@@ -162,7 +162,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ErrorWriter.cs" />
+    <Compile Include="Models\AdminModel.cs" />
+    <Compile Include="Models\AgentModel.cs" />
+    <Compile Include="Models\Common\Mailer.cs" />
+    <Compile Include="Models\JobsModel.cs" />
+    <Compile Include="Models\MainModel.cs" />
     <Compile Include="Models\TestModel.cs" />
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
