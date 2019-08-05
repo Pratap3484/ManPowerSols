@@ -1,0 +1,174 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<style>
+    .dataTables_wrapper {
+        margin-top: 10px;
+    }
+
+</style>
+<div class="nav-wrapper">
+    <nav class="nav az-nav-line">
+        <a href="#" class="nav-link active">Overview</a>
+        @*<a href="#" class="nav-link">Deals</a>
+        <a href="#" class="nav-link">Reviews</a>
+        <a href="#" class="nav-link">Notifications</a>*@
+    </nav>
+</div><!-- nav-wrapper -->
+<div class="az-content-body">
+
+    <div class="row row-sm">
+        <div class="col-sm-6 col-xl-3">
+            <div class="card card-dashboard-twentytwo">
+                <div class="media">
+                    <div class="media-icon bg-purple"><i class="typcn typcn-chart-line-outline"></i></div>
+                    <div class="media-body">
+                        <h6>32.53% <small class="down">-0.5%</small></h6>
+                        <span>Admin Requests</span>
+                    </div>
+                </div>
+                <div class="chart-wrapper">
+                    <div id="flotChart1" class="flot-chart"></div>
+                </div><!-- chart-wrapper -->
+            </div><!-- card -->
+        </div><!-- col -->
+        <div class="col-sm-6 col-xl-3 mg-t-20 mg-sm-t-0">
+            <div class="card card-dashboard-twentytwo">
+                <div class="media">
+                    <div class="media-icon bg-primary"><i class="typcn typcn-chart-line-outline"></i></div>
+                    <div class="media-body">
+                        <h6>7,682 <small class="up">+0.1%</small></h6>
+                        <span>Employer Requests</span>
+                    </div>
+                </div>
+                <div class="chart-wrapper">
+                    <div id="flotChart2" class="flot-chart"></div>
+                </div><!-- chart-wrapper -->
+            </div><!-- card -->
+        </div><!-- col-3 -->
+        <div class="col-sm-6 col-xl-3 mg-t-20 mg-xl-t-0">
+            <div class="card card-dashboard-twentytwo">
+                <div class="media">
+                    <div class="media-icon bg-pink"><i class="typcn typcn-chart-line-outline"></i></div>
+                    <div class="media-body">
+                        <h6>5 <small class="down">Today</small></h6>
+                        <span>User Requests</span>
+                    </div>
+                </div>
+                <div class="chart-wrapper">
+                    <div id="flotChart3" class="flot-chart"></div>
+                </div><!-- chart-wrapper -->
+            </div><!-- card -->
+        </div><!-- col -->
+
+        <div class="col-xl-12 mg-t-20">
+            <div class="card card-dashboard-twentyone">
+                <div class="row no-gutters modal-body pd-sm-40" style="padding:0 20px">
+                    <table id="tblJobs" class="table"></table>
+
+                </div><!-- row -->
+            </div><!-- card -->
+        </div><!-- col -->
+        
+       
+    </div><!-- row -->
+</div>
+
+
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+
+<script src="~/lib/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="~/lib/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="~/lib/datatables.net-dt/js/dataTables.dataTables.min.js"></script>
+<script src="~/lib/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="~/lib/datatables.net-responsive-dt/js/responsive.dataTables.min.js"></script>
+<script src="~/MpsJs/CommonJs.js"></script>
+
+<script src="~/timer/bootstrap.min.js"></script>
+<script>
+    getAgentPosts('Public')
+    function getAgentPosts(type) {
+        var jp = {};
+        jp.UserID = 'ADMIN';
+        jp.RecordType = '3';
+        jp.Access_status = type
+        $.ajax({
+            url: '/Admin/AdDashboard/GetEmpPostsbyStatus',
+            type: 'POST',
+            data: JSON.stringify(jp),
+            contentType: 'application/json; charset=utf-8',
+            dataType: "json",
+            success: function (res) {
+                dataSet = [];
+                if (res.ResponseCode == "200") {
+                    binddata(res.ResponseList.joblist)
+                }
+                else {
+                    binddata(dataSet)
+                    $('#divEmpPublicJobs').empty()
+                }
+            },
+            error: function (err) {
+            }
+        });
+    }
+
+    var table;
+    function binddata(res) {
+        var url = window.location.href.split('/')[0]
+        for (var i = 0; i < res.length; i++) {
+            var act = '<img src="' + url + '/img/deal.png" style="cursor:pointer;height:35px;width:45px" title="Apply for this Job" onclick="jobfulldetails(\'' + res[i].Rec_ID + '\')">'
+            dataSet[i] = [
+                '<a href="#" style="cursor:pointer" onclick="jobfulldetails(\'' + res[i].Rec_ID + '\')">' + res[i].Post_Title + '</a>',
+                            res[i].CompanyName,
+                           res[i].Post_Category, //+ '-' + res[i].Post_SubCategory,
+                           res[i].NoOfEmp + ' Nos',
+                           //res[i].Emp_experince + ' Years',
+                           //res[i].shifttimings,
+                           //res[i].FromTime + ' - ' + res[i].ToTime,
+                           //res[i].ContractPeriod,
+                           res[i].Country,
+                           act
+            ]
+        }
+        //console.log(dataSet)
+        table = $('#tblJobs').DataTable({
+            destroy: true,
+            responsive: true,
+            language: {
+                searchPlaceholder: 'Search...',
+                sSearch: '',
+                lengthMenu: '_MENU_ items/page',
+            },
+            data: dataSet,
+            columns: [
+                { title: "Job Title" },
+                { title: "Company Name" },
+            { title: "Category" },
+            { title: "No of Emp" },
+             //{ title: "Experience" },
+           // { title: "Timings" },
+
+            //{ title: "Contract Period", },
+            { title: "Location", },
+              { title: "Deal", },
+            ],
+            buttons: {
+                buttons: [
+                    {
+                        text: 'Alert',
+                        action: function (e, dt, node, config) {
+                            alert('Activated!');
+                            this.disable(); // disable button
+                        }
+                    }
+                ]
+            }
+        });
+    }
+
+  
+</script>
+

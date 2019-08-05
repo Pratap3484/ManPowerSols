@@ -1,5 +1,4 @@
 ﻿using ManPowerSols.Core.Models;
-using ManPowerSols.Core.Models.Common;
 using ManPowerSols.Data;
 using System;
 using System.Collections.Generic;
@@ -16,10 +15,8 @@ namespace ManPowerSols.Controllers
     public class HomeController : Controller
     {
         MainRepoistory mps = new MainRepoistory();
-        //Mailer mb = new Mailer();
         public ActionResult Index()
         {
-           // mb.mail();
             return View();
         }
 
