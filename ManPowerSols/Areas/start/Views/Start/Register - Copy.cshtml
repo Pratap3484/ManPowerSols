@@ -1,0 +1,406 @@
+﻿@model ManPowerSols.Core.Models.UserModel
+@{
+    ViewBag.Title = "Contact";
+    Layout = "~/Views/Shared/_NoLoginLayoutPage.cshtml";
+}
+<div class="az-signup-wrapper">
+    <div class="az-column-signup-left">
+        <div id="divMPS">
+
+            <h1 class="az-logo"><img src="~/img/mps-logo_small.png" alt="">M P S</h1>
+            <h5>Manpowere Supplier &amp; Admin</h5>
+            @*<p>We are excited to launch our new company and product Azia. After being featured in too many magazines to mention and having created an online stir, we know that ThemePixels is going to be big. We also hope to win Startup Fictional Business of the Year this year.</p>
+            <p>Browse our site and see for yourself why you need Azia.</p>*@
+            <a href="#" class="btn btn-outline-indigo">Learn More</a>
+        </div>
+        <div id="divSuccessSignup" style="display:none">
+            <h1 class="az-logo"><img src="~/img/mps-logo_small.png" alt="">M P S</h1>
+            <h5>Manpowere Supplier &amp; Admin</h5>
+            <p class="alert alert-success" >Congratulations!. You have successfully registered with MPS system. You can experince the MPS system after your signup approved by the admin</p>
+            <p style="font-weight:bold">Thank you for associating with us. -MPS</p>
+            <a href="#" id="lnklogin" class="btn btn-outline-indigo">Login</a>
+        </div>
+        <div id="divFailureSignup" style="display:none">
+            <h1 class="az-logo"><img src="~/img/mps-logo_small.png" alt="">M P S</h1>
+            <h5>Manpowere Supplier &amp; Admin</h5>
+            <p class="alert alert-danger">Sorry!. You are unable to register with the MPS system. Please find the below details of failure registration - MPS</p>
+            <p style="font-weight:bold" id="lblerrmsg"></p>
+            
+        </div>
+    </div><!-- az-column-signup-left -->
+    <div class="az-column-signup">
+        <h1 class="az-logo"><img src="~/img/mps-logo_small.png" alt="">M P S</h1>
+        <div class="az-signup-header">
+            <h2>Get Started</h2>
+            <h4>It's free to signup and only takes a minute.</h4>
+            <form id="regform" method="post" name="regform">
+                @*@using (Html.BeginForm("UserRegistration","Start",FormMethod.Post)) {
+            @Html.ValidationSummary(true,"",new { @class="text-danger"})
+             @Html.HiddenFor(m=>m.regtype)*@
+                <div class="form-group">
+                    <label>Register As</label>&nbsp;&nbsp;&nbsp;
+                    @*@Html.RadioButtonFor(m => m.usertype, "2")Agent
+                @Html.RadioButtonFor(m => m.usertype, "3")Employer
+                @Html.RadioButtonFor(m => m.usertype, "4")User
+                @Html.ValidationMessageFor(m => m.usertype, "", new { @class = "text-danger", @required = true })*@
+                    <input type="radio" name="rdousertype" value="2" checked/>Agent&nbsp;
+                    <input type="radio" name="rdousertype" value="3" />Employer&nbsp;
+                    <input type="radio" name="rdousertype" value="4" />User
+                </div><!-- form-group -->
+                <input type="hidden" id="hdnregtype" value="WebApp" />
+                <div class="form-group">
+                    <label>First Name</label>
+                <input type="text" id="txtfirstname" name="txtfirstname" class="form-control" placeholder="Enter your first name" required="required" />
+                    @*@Html.TextBoxFor(m=>m.firstname, new { @class = "form-control", @placeholder = "Enter your firstname",@required=true })*@
+                    @*@Html.ValidationMessageFor(m => m.firstname, null, new { @class = "text-danger" })*@
+                </div><!-- form-group -->
+                <div class="form-group">
+                    <label>Last Name</label>
+                    <input type="text" id="txtlastname" name="txtlastname" class="form-control" placeholder="Enter your last name" required="required" />
+                    @*@Html.TextBoxFor(m => m.lastname, new { @class = "form-control", @placeholder = "Enter your lastname", @required = true })
+                    @Html.ValidationMessageFor(m => m.lastname, "", new { @class = "text-danger" })*@
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="text" id="txtemailid" name="txtemailid" class="form-control" placeholder="Enter your mail id" required="required" />
+                    @*@Html.TextBoxFor(m => m.emailid, new { @class = "form-control", @placeholder = "Enter your email", @required = true })
+                    @Html.ValidationMessageFor(m => m.emailid, "", new { @class = "text-danger" })*@
+                </div><!-- form-group -->
+                <div class="form-group">
+                    <label>Mobile</label>
+                    <input type="text" id="txtmobile" name="txtmobile" maxlength="10" class="form-control" placeholder="Enter your mobile number" required="required" />
+                    @*@Html.TextBoxFor(m => m.mobile, new { @class = "form-control", @placeholder = "Enter your mobile number", @required = true })
+                    @Html.ValidationMessageFor(m => m.mobile, "", new { @class = "text-danger" })*@
+                </div><!-- form-group -->
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="txtpassword" name="txtpassword" autocomplete="off" class="form-control" placeholder="Enter your password" required="required" />
+                    @*@Html.TextBoxFor(m => m.password, new { @class = "form-control", @placeholder = "Enter your password", @required = true })
+                    @Html.ValidationMessageFor(m => m.password, "", new { @class = "text-danger" })*@
+                </div><!-- form-group -->
+                <div class="form-group">
+                    <label>Country</label>
+                    <select class="form-control" data-select2-id="1" tabindex="-1" aria-hidden="true" id="ddlcountry" required="required">
+                        <option label="Select Country" data-select2-id="3"></option>
+                    </select>
+                </div><!-- form-group -->
+                <div class="form-group">
+                    <label>State</label>
+                    <select class="form-control" data-select2-id="1" tabindex="-1" aria-hidden="true" id="ddlstate">
+                        <option label="Select State" data-select2-id="3"></option>
+                    </select>
+                </div><!-- form-group -->
+                <div class="form-group">
+                    <label>Country</label>
+                    <select class="form-control" data-select2-id="1"  tabindex="-1" aria-hidden="true" id="ddlcity">
+                        <option label="Select City" data-select2-id="3"></option>
+                    </select>
+                </div><!-- form-group -->
+                <button class="btn btn-az-primary btn-block" id="btncreareaccount" type="submit">Create Account</button>
+                @*}*@
+            </form>
+            <div class="row row-xs" id="divsocialRegbtns">
+                <div class="col-sm-6"><button class="btn btn-block"><i class="fab fa-facebook-f"></i> Signup with Facebook</button></div>
+                <div class="col-sm-6 mg-t-10 mg-sm-t-0">
+                <button class="btn btn-primary btn-block" style="background-color:#dd5044" id="googleplus"><i class="fab fa-google-plus"></i> Signup with Google</button></div>
+            </div><!-- row -->
+        </div><!-- az-signup-header -->
+        <div class="az-signup-footer">
+            <p>Already have an account? <a href="#" id="lnksignin">Sign In</a></p>
+        </div><!-- az-signin-footer -->
+    </div><!-- az-column-signup -->
+</div>
+@*<script src="https://cdn.jsdelivr.net/jquery/1.12.4/jquery.min.js"></script>*@
+@*<script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>*@
+
+
+<script src="~/js/jqueryformvalidator.js"></script>
+
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+<script src="https://apis.google.com/js/api:client.js"></script>
+
+<!--Countrs.states and cities list fucntions-->
+<script>
+
+    function getcountrylist(cntrl) {
+        $.ajax({
+            //url: '@Url.Action("GetCountryList", "Home")',
+            url: '/Home/GetCountryList',
+            type: 'POST',
+            data: JSON.stringify(),
+            contentType: 'application/json; charset=utf-8',
+            dataType: "json",
+            success: function (res) {
+                if (res.ResponseCode == "200") {
+                    var mySelect = $('#' + cntrl);
+                    mySelect.empty()
+                    mySelect.append($('<option></option>').val('').html('Select Country'))
+                    $.each(res.ResponseList.countrylist, function (i, item) {
+                        mySelect.append(
+                            $('<option></option>').val(item.id).html(item.CountryName)
+                        );
+                    });
+                }
+                else if (res.ResponseCode == "100") {
+                    alert('something went wrong! Please try again.')
+                }
+
+                else {
+
+                    alert('Error : Status Code: ' + res.ResponseCode + '. Messsage' + res.ResponseMessage)
+                }
+                //$('#divLoader').modal('hide');
+            },
+
+            error: function (err) {
+
+            }
+        });
+    }
+
+    function getstatelist(countryid, cntrl) {
+        var jp = {};
+        jp.CountryID = countryid;
+        $.ajax({
+            url: '/Home/GetStatesbyCountry',
+            type: 'POST',
+            data: JSON.stringify(jp),
+            contentType: 'application/json; charset=utf-8',
+            dataType: "json",
+            success: function (res) {
+                if (res.ResponseCode == "200") {
+                    var mySelect = $('#' + cntrl);
+                    mySelect.empty()
+                    mySelect.append($('<option></option>').val('').html('Select State'))
+                    $.each(res.ResponseList.statelist, function (i, item) {
+                        mySelect.append(
+                            $('<option></option>').val(item.id).html(item.StateName)
+                        );
+                    });
+                }
+                else if (res.ResponseCode == "100") {
+                    alert('something went wrong! Please try again.')
+                }
+
+                else {
+
+                    alert('Error : Status Code: ' + res.ResponseCode + '. Messsage' + res.ResponseMessage)
+                }
+                //$('#divLoader').modal('hide');
+            },
+
+            error: function (err) {
+
+            }
+        });
+    }
+
+    function getcitieslist(stateid, cntrl) {
+        var jp = {};
+        jp.StateID = stateid;
+        $.ajax({
+            url: '/Home/GetCitiesbyState',
+            type: 'POST',
+            data: JSON.stringify(jp),
+            contentType: 'application/json; charset=utf-8',
+            dataType: "json",
+            success: function (res) {
+                if (res.ResponseCode == "200") {
+                    var mySelect = $('#' + cntrl);
+                    mySelect.empty()
+                    mySelect.append($('<option></option>').val('').html('Select City'))
+                    $.each(res.ResponseList.citylist, function (i, item) {
+                        mySelect.append(
+                            $('<option></option>').val(item.id).html(item.CityName)
+                        );
+                    });
+                }
+                else if (res.ResponseCode == "100") {
+                    alert('something went wrong! Please try again.')
+                }
+
+                else {
+
+                    alert('Error : Status Code: ' + res.ResponseCode + '. Messsage' + res.ResponseMessage)
+                }
+                //$('#divLoader').modal('hide');
+            },
+
+            error: function (err) {
+
+            }
+        });
+    }
+</script>
+<script>
+    $(document).ready(function (e) {
+        getcountrylist('ddlcountry')
+    })
+    $('#ddlcountry').change(function () {
+        getstatelist($(this).val(), 'ddlstate')
+    })
+    $('#ddlstate').change(function () {
+        getcitieslist($(this).val(), 'ddlcity')
+    })
+    $('#hdnregtype').val('WebApp');
+        // Initialize form validation on the registration form.
+        // It has the name attribute "registration"
+        $("form[name='regform']").validate({
+            // Specify validation rules
+            rules: {
+                // The key name on the left side is the name attribute
+                // of an input field. Validation rules are defined
+                // on the right side
+                txtfirstname: "required",
+                txtlastname: "required",
+                ddlcountry:"required",
+                txtemailid: {
+                    required: true,
+                    // Specify that email should be validated
+                    // by the built-in "email" rule
+                    email: true
+                },
+                txtpassword: {
+                    required: true,
+                    minlength: 5
+                },
+                txtmobile: {
+                    required: true,
+                    minlength: 10
+                }
+            },
+            // Specify validation error messages
+            messages: {
+                txtfirstname: "Please enter your firstname",
+                txtlastname: "Please enter your lastname",
+                txtpassword: {
+                    required: "Please provide a password",
+                    minlength: "Your password must be at least 5 characters long"
+                },
+                txtemail: "Please enter a valid email address",
+                txtemail: "Please select your country",
+                txtmobile: {
+                    required: "Please enter mobile number",
+                    minlength: "Enter 10 digits mobile numbers only"
+                },
+            },
+            // Make sure the form is submitted to the destination defined
+            // in the "action" attribute of the form when valid
+            submitHandler: function (form) {
+                form.submit();
+            }
+        });
+
+
+        $('#btncreareaccount').click(function (e) {
+
+
+            if ($('#txtfirstname').val() != '' && $('#txtlastname').val() != '' && $('#txtemailid').val() != '' && $('#txtmobile').val() != '' && $('#txtpassword').val() != '' && $('#ddlcountry :selected').val()!='') {
+            e.preventDefault();
+            $('#divLoader').modal('show');
+            var um = {};
+            um.firstname = $('#txtfirstname').val();
+            um.lastname = $('#txtlastname').val();
+            um.emailid = $('#txtemailid').val();
+            um.mobile = $('#txtmobile').val();
+            um.password = $('#txtpassword').val();
+            um.usertype = $("input[name='rdousertype']:checked").val()
+            um.regtype = $('#hdnregtype').val();
+            um.Country = $('#ddlcountry :selected').text();
+            um.State = $('#ddlstate :selected').text()
+            um.City = $('#ddlcity :selected').text();
+            $.ajax({
+                url: '@Url.Action("UserRegistration", "Start")',
+                type: 'POST',
+                data: JSON.stringify(um),
+                contentType: 'application/json; charset=utf-8',
+                dataType: "json",
+                success: function (res) {
+                    if (res.ResponseCode == "200") {
+                        $("input").val('')
+                        $('#divSuccessSignup').show()
+                        $('#divMPS,#divFailureSignup').hide()
+                        $('#lnklogin').attr('href', '../Start/Index?Tp=' + um.usertype)
+                        //alert('Registration Succussfully completed')
+                        //window.location='../Start/Index?Tp='+um.usertype
+                    }
+                    else if (res.ResponseCode == "100") {
+                        $('#txtemailid').focus()
+                        $("#txtemailid").val('')
+                        $('#divMPS,#divSuccessSignup').hide()
+                        $('#divFailureSignup').show()
+                        $('#lblerrmsg').text('Status: ' + res.ResponseCode + '. Messsage' + res.ResponseMessage)
+                        //alert('Email Id already existed. Please try with other one')
+                    }
+                    else {
+                        $('#txtfirstname').focus()
+                        $("input").val('')
+                        $('#divMPS,#divSuccessSignup').hide()
+                        $('#divFailureSignup').show()
+                        $('#lblerrmsg').text('Status: ' + res.ResponseCode + '. Messsage' + res.ResponseMessage)
+                        //alert('Error : Status Code: ' + res.ResponseCode + '. Messsage' + res.ResponseMessage)
+                    }
+                    $('#divLoader').modal('hide');
+                },
+
+                error: function (err) {
+                    $('#divLoader').modal('hide');
+                }
+            });
+        }
+        })
+
+    $('#lnksignin').click(function () {
+        window.location = '../Start/Index?Tp=' + $("input[name='rdousertype']:checked").val()
+    })
+</script>
+<script>
+        var googleUser = {};
+        var startAppA = function () {
+            gapi.load('auth2', function () {
+                //Retrieve the singleton for the GoogleAuth library and set up the client.
+                auth2 = gapi.auth2.init({
+                    client_id: '258581612007-f9oi25h62ka1rv9c330ede0tkhqsb8td.apps.googleusercontent.com',
+                    secret_key: 'z01CXZ7_ie1ZXwSOaLKbE-rs',
+                    cookiepolicy: 'single_host_origin',
+                });
+                attachSignin(document.getElementById('googleplus'));
+            });
+        };
+
+        function attachSignin(element) {
+            auth2.attachClickHandler(element, {},
+                function (googleUser) {
+                    
+                    $(".se-pre-con").show();
+                    console.log(googleUser);
+                    var profiles = googleUser.getBasicProfile();
+                    var ReturnUrl = 'http://localhost:1831/start/Start/Register';
+
+                    //Crate A Bunch Of Object for Search
+                    var objData = {
+                        Email: profiles.getEmail(),
+                        LastName: profiles.getFamilyName(),
+                        FirstName: profiles.getGivenName(),
+                        GoogleID: profiles.getId(),
+                        ProfileURL: profiles.getName(),
+                        image:profiles.Paa
+                    };
+                    $('#txtfirstname').val(profiles.getGivenName());
+                    $('#txtlastname').val(profiles.getFamilyName());
+                    $('#txtemailid').val(profiles.getEmail())
+                    $('#hdnregtype').val('GooglePlus');
+                    $('#txtfirstname,#txtlastname,#txtemailid').attr('readonly', true)
+                    $('#divsocialRegbtns').hide()
+                    console.log(objData)
+                    
+                    $(".se-pre-con").hide();
+
+                }, function (error) {
+                    alert(JSON.stringify(error, undefined, 2));
+                });
+        }
+</script>
+
+<script>startAppA();</script>

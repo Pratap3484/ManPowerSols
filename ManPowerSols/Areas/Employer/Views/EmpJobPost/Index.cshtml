@@ -1,0 +1,426 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_EmployerLayout.cshtml";
+}
+<link href="~/timer/bootstrap-clockpicker.min.css" rel="stylesheet" />
+<link href="~/timer/github.min.css" rel="stylesheet" />
+<div class="az-content-body">
+    <div class="row row-sm">
+        <div class="col-xl-9 mg-t-20">
+            <div class="card card-dashboard-twentyone">
+                <div class="row no-gutters">
+                    <div class="col-md-12">
+                        <div class="card-body">
+                            <!-- <h6 class="az-content-label">My Profile</h6> -->
+                            <p>Resource Requirement Posting</p>
+                            <hr>
+                            <div class="modal-body pd-sm-40" style="padding:0 20px">
+                                <form id="frmsrc" method="post" name="frmsrc">
+                                    <div class="form-group" data-select2-id="8">
+                                        <input type="radio" name="rdojobtype" value="2" checked="checked" />&nbsp;Manpower Supplier&nbsp;&nbsp;&nbsp;
+                                        <input type="radio" name="rdojobtype" value="3" />&nbsp;Manpower Requirement
+                                        @*<select class="form-control" data-select2-id="1" tabindex="-1" aria-hidden="true" id="ddljobtype" name="ddltimings">
+                                                <option value="2" data-select2-id="16">Post as Agent</option>
+                                                <option value="3" data-select2-id="17">Post as Employer</option>
+                                            </select>*@
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row row-sm">
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control" placeholder="Job Title" id="txtjobtitle" name="txtjobtitle" required="required">
+                                            </div><!-- form-group -->
+                                            <div class="col-sm-6" data-select2-id="8">
+                                                <select class="form-control" data-select2-id="1" tabindex="-1" aria-hidden="true" name="ddlcategory" id="ddlcategory">
+                                                    <option label="Select Sector" data-select2-id="3"></option>
+                                                    <option value="Marine" data-select2-id="17">Marine</option>
+                                                    <option value="Marine Crew" data-select2-id="17">Marine Crew</option>
+                                                    <option value="Hotel Crew" data-select2-id="17">Hotel Crew</option>
+                                                    <option value="Construction" data-select2-id="17">Construction</option>
+                                                    <option value="Process" data-select2-id="16">Process</option>
+                                                    <option value="Service" data-select2-id="17">Service</option>
+                                                    <option value="Office" data-select2-id="17">Office</option>
+                                                    <option value="Voyage" data-select2-id="19">Voyage</option>
+                                                    <option value="Riding Crew" data-select2-id="17">Riding Crew</option>
+                                                    <option value="Domestic Workers" data-select2-id="17">Domestic Workers</option>
+                                                    <option value="Offshore" data-select2-id="19">Offshore</option>
+                                                    <option value="Others" data-select2-id="19">Others</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Other Sector" style="display:none" id="txtothers" name="txtothers" required="required">
+                                    </div><!-- form-group -->
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Company Name" id="txtcompany" name="txtcompany" />
+                                    </div><!-- form-group -->
+                                    <div class="form-group">
+                                        <div class="row row-sm">
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control numsonly" placeholder="No. Employees Required" id="txtnoemps" name="txtnoemps" />
+                                            </div><!-- form-group -->
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control decimals" placeholder="Emp. Experience" id="txtempexp" name="txtempexp">
+                                            </div>
+                                        </div>
+                                    </div><!-- form-group -->
+                                    <div class="form-group" data-select2-id="8">
+                                        <div class="row row-sm">
+                                            <div class="col-sm-3" >
+                                                <div class="input-group clockpicker" id="divtxtfromtime"  data-align="top" data-autoclose="true">
+                                                    <input type="text" class="form-control" placeholder="From Time" id="txtfromtime" name="txtfromtime">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="input-group clockpicker" id="divtxttotime" data-align="top" data-autoclose="true">
+                                                    <input type="text" class="form-control" placeholder="To Time" id="txttotime" name="txttotime">
+                                                </div>
+                                                @*<select class="form-control" data-select2-id="1" tabindex="-1" aria-hidden="true" id="ddltimings" name="ddltimings">
+                                                        <option label="Shift Timings" data-select2-id="3"></option>
+                                                        <option value="6AM to 4PM" data-select2-id="16">6AM to 4PM</option>
+                                                        <option value="9AM to 6PM" data-select2-id="17">9AM to 6PM</option>
+                                                        <option value="8PM to 5AM" data-select2-id="19">8PM to 5AM</option>
+                                                    </select>*@
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control numsonly" placeholder="Contract Period" id="txtcontractperiod" name="txtcontractperiod" />
+                                                @*<select class="form-control" data-select2-id="1" tabindex="-1" aria-hidden="true" id="ddlcontractperiod" name="ddlcontractperiod">
+                                                        <option label="Contract Period" data-select2-id="3"></option>
+                                                        <option value="1 Week" data-select2-id="16">1 Week</option>
+                                                        <option value="2 Weeks" data-select2-id="16">2 Weeks</option>
+                                                        <option value="1 Month" data-select2-id="16">1 Month</option>
+                                                        <option value="3 Months" data-select2-id="17">3 Months</option>
+                                                        <option value="6 Months" data-select2-id="19">6 Months</option>
+                                                        <option value="1 Year" data-select2-id="19">1 Year</option>
+                                                    </select>*@
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <select class="form-control" data-select2-id="1" tabindex="-1" aria-hidden="true" id="ddlcontractperiodtype" name="ddlcontractperiodtype">
+                                                    <option label="Contract Type " data-select2-id="3"></option>
+                                                    <option value="Days" data-select2-id="16">Days</option>
+                                                    <option value="Weeks" data-select2-id="16">Weeks</option>
+                                                    <option value="Months" data-select2-id="16">Months</option>
+                                                    <option value="Years" data-select2-id="17">Years</option>
+                                                    <option value="Permanent" data-select2-id="19">Permanent</option>
+                                                    <option value="Others" data-select2-id="17">Others</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" data-select2-id="8">
+                                        <div class="row row-sm">
+                                            <div class="col-sm-6">
+                                                <select class="form-control" data-select2-id="1" tabindex="-1" aria-hidden="true" id="ddlpaytype" name="ddlpaytype">
+                                                    <option label="Payment Type" data-select2-id="3"></option>
+                                                    <option value="Per Hour" data-select2-id="16">Per Hour</option>
+                                                    <option value="Per Day" data-select2-id="17">Per Day</option>
+                                                    <option value="Per Week" data-select2-id="19">Per Week</option>
+                                                    <option value="Per Month" data-select2-id="19">Per Month</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <select class="form-control" placeholder="Currency Type" id="txtcurrencytype" name="txtcurrencytype">
+                                                    <option label="Currency Type" data-select2-id="3"></option>
+                                                    <option value="$-SGD" data-select2-id="16">SGD</option>
+                                                    <option value="$-USD" data-select2-id="16">USD</option>
+                                                    <option value="$-AUD" data-select2-id="16">AUD</option>
+                                                    <option value="$-KWD" data-select2-id="16">KWD</option>
+                                                    <option value="$-IQD" data-select2-id="16">IQD</option>
+                                                    <option value="₹-INR" data-select2-id="17">INR</option>
+                                                    <option value="Rp-IDR" data-select2-id="17">IDR</option>
+                                                    <option value="₱-PHP" data-select2-id="17">PHP</option>
+                                                    <option value="RM-MYR" data-select2-id="17">MYR</option>
+                                                    <option value="€-Euro" data-select2-id="19">Euro</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control decimals" placeholder="Amount" id="txtamount" name="txtamount">
+                                            </div>
+                                        </div>
+                                    </div><!-- form-group -->
+                                    <div class="form-group">
+                                        <textarea class="form-control" placeholder="Work Location" id="txtworkloc" name="txtworkloc"></textarea>
+                                    </div><!-- form-group -->
+                                    <div class="form-group" data-select2-id="8">
+                                        <select class="form-control" data-select2-id="1" tabindex="-1" aria-hidden="true" id="ddltrsprt" name="ddltrsprt">
+                                            <option label="Transport Facility" data-select2-id="3"></option>
+                                            <option value="By Employee" data-select2-id="15">By Employee</option>
+                                            <option value="By Employer" data-select2-id="16">By Employer</option>
+                                            <option value="By Agent" data-select2-id="16">By Agent</option>
+
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea class="form-control" placeholder="Description" id="txtdescmsg" name="txtdescmsg"></textarea>
+                                    </div><!-- form-group -->
+                                    <div class="form-group">
+                                        <div class="row row-sm">
+                                            <div class="col-sm-6">
+                                                <select class="form-control" data-select2-id="1" tabindex="-1" aria-hidden="true" id="ddlcountry" name="ddlcountry">
+                                                    <option label="Select Country" data-select2-id="3"></option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <select class="form-control" data-select2-id="1" tabindex="-1" aria-hidden="true" id="ddlstate" name="ddlstate">
+                                                    <option label="Select State" data-select2-id="3"></option>
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                    </div><!-- form-group -->
+                                    <div class="form-group">
+                                        <div class="row row-sm">
+                                            <div class="col-sm-6">
+                                                <select class="form-control" data-select2-id="1" tabindex="-1" aria-hidden="true" id="ddlcity" name="ddlcity">
+                                                    <option label="Select City" data-select2-id="3"></option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control numsonly" maxlength="7" placeholder="Zip Code" id="txtzipcode" name="txtzipcode">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="form-group mg-b-25" id="">
+                                        <label class="ckbox mg-b-5">
+                                            <input type="checkbox" id="cbterms" name="cbterms"><span class="tx-13">I agree to <a href="">Terms</a> and <a href="">Privacy Policy</a></span>
+                                        </label>
+
+                                    </div><!-- form-group -->
+                                    <div id="divcb"></div>
+                                    <button class="btn btn-primary btn-block" id="btnPostResource" type="submit">Post Requirement</button>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div><!-- row -->
+            </div><!-- card -->
+        </div><!-- col -->
+
+        <div class="col-md-4 col-xl-3 mg-t-20">
+            <div class="card card-body card-dashboard-twentythree ht-xl-100p">
+                <h6 class="card-title tx-14 mg-b-10">Manage Deals</h6>
+                <p class="mg-b-15">The percentage of manages the empoloyers request and agents posting.</p>
+
+                <div class="d-flex flex-column align-items-center mg-b-25">
+                    <div>
+                        <div class="az-donut-chart chart1">
+                            <div class="slice one"></div>
+                            <div class="slice two"></div>
+                            <div class="chart-center">
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- d-flex -->
+
+                <div class="row row-sm">
+                    <div class="col-6">
+                        <label><span class="bg-indigo"></span> Employers</label>
+                        <h5>67%</h5>
+                    </div>
+                    <div class="col-6">
+                        <label><span class="bg-gray-500"></span> Agents</label>
+                        <h5>89%</h5>
+                    </div>
+                </div><!-- row -->
+            </div>
+        </div>
+    </div><!-- row -->
+</div>
+
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+<script src="~/MpsJs/CommonJs.js"></script>
+<script src="~/timer/bootstrap.min.js"></script>
+<script src="~/timer/bootstrap-clockpicker.min.js"></script>
+<script src="~/timer/highlight.min.js"></script>
+<script>
+    $(document).ready(function () {
+        getcountrylist('ddlcountry')
+        $('.clockpicker').clockpicker();
+    })
+    $('#ddlcountry').change(function () {
+        getstatelist($(this).val(), 'ddlstate')
+    })
+
+    $('#ddlstate').change(function () {
+        getcitieslist($(this).val(), 'ddlcity')
+    })
+    jQuery.validator.addMethod("notEqual", function (value, element, param) {
+        return this.optional(element) || value !== param;
+    }, "Please choose a value!");
+    $("form[name='frmsrc']").validate({
+        // Specify validation rules
+        rules: {
+            ddlcategory: "required",
+            txtsubcat: "required",
+            txtnoemps: "required",
+            txtempexp: "required",
+            txtfromtime: {
+                required: true,
+                notEqual: "00:00"
+            },
+            txttotime: {
+                required: true,
+                notEqual: "00:00"
+            },
+            //ddltimings: "required",
+            //ddlcontractperiod: "required",
+            txtcontractperiod: "required",
+            ddlcontractperiodtype: "required",
+            ddltrsprt: "required",
+            txtworkloc: "required",
+            cbterms: "required",
+            txtcompany: "required",
+            ddlpaytype: "required",
+            txtcurrencytype: "required",
+            txtamount: "required",
+            txtdescmsg: "required",
+            ddlcountry: "required",
+            ddlstate: "required",
+            ddlcity: "required"
+        },
+
+        submitHandler: function (form) {
+            form.submit();
+        },
+        //errorElement: "div",
+        errorPlacement: function (error, element) {
+            if (element[0].id == 'cbterms') {
+                error.insertAfter('#divcb');
+            }
+            else if (element[0].id == 'txtfromtime') {
+                error.insertAfter('#divtxtfromtime');
+            }
+            else if (element[0].id == 'txttotime') {
+                error.insertAfter('#divtxttotime');
+            }
+            else {
+                error.insertAfter(element);
+            }
+        }
+    });
+    $('#ddlcontractperiodtype').change(function (e) {
+        if ($(this).val() == 'Permanent') {
+            $('#txtcontractperiod,#txtcontractperiod-error').hide()
+        }
+        else {
+            $('#txtcontractperiod').show()
+        }
+    })
+    $(".numsonly").keypress(function (e) {
+        //if the letter is not digit then display error and don't type anything
+        if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+            //display error message
+            return false;
+        }
+    });
+    $(".decimals").keydown(function (event) {
+
+
+        if (event.shiftKey == true) {
+            event.preventDefault();
+        }
+
+        if ((event.keyCode >= 48 && event.keyCode <= 57) ||
+            (event.keyCode >= 96 && event.keyCode <= 105) ||
+            event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 37 ||
+            event.keyCode == 39 || event.keyCode == 46 || event.keyCode == 190) {
+
+        } else {
+            event.preventDefault();
+        }
+
+        if ($(this).val().indexOf('.') !== -1 && event.keyCode == 190)
+            event.preventDefault();
+        //if a decimal has been added, disable the "."-button
+
+    });
+    //$(document).click(function () {
+    //    $("label.error").hide();
+    //    $(".error").removeClass("error");
+    //});
+
+    var dataSet = [];
+    var form = $("#frmsrc");
+    form.validate();
+    $('#btnPostResource').click(function (e) {
+
+        //alert("Valid: " + form.valid());
+        //if ($('#ddlcategory').val() != '' && $('#txtsubcat').val() != '' && $('#txtnoemps').val() != '' && $('#txtcompany').val() != '' && $('#txtempexp').val() != '' && $('#ddltimings').val() != '' && $('#ddlcontractperiod').val() != '' && $('#txtworkloc').val() != '' && $('#ddltrsprt').val() != '') {
+        if (form.valid() == true) {
+            e.preventDefault();
+            // $('#divLoader').modal('show');
+            var jp = {};
+            jp.Post_Category = $('#ddlcategory').val();
+            jp.Post_SubCategory = $('#txtsubcat').val();
+            jp.NoOfEmp = $('#txtnoemps').val();
+            jp.CompanyName = $('#txtcompany').val();
+            jp.Emp_experince = $('#txtempexp').val();
+            jp.FromTime = $('#txtfromtime').val();
+            jp.ToTime = $('#txttotime').val();
+            //jp.shifttimings = $('#txtfromtime').val() + ' to ' + $('#txttotime').val();
+            jp.ContractType = $('#ddlcontractperiodtype').val();
+            //jp.ContractPeriod = $('#txtcontractperiod').val() + ' ' + $('#ddlcontractperiodtype').val();
+            jp.ContractPeriod = $('#txtcontractperiod').val();
+            jp.WorkLocation = $("#txtworkloc").val()
+            jp.UserID = sessionStorage.getItem('usermailid');
+            //jp.RecordType = sessionStorage.getItem('usertype')
+            jp.RecordType = $("input[name='rdojobtype']:checked").val();
+            jp.Access_status = 'Private'
+            jp.TransaposrtFacility = $('#ddltrsprt').val();
+            jp.Country = $('#ddlcountry :selected').text();
+            jp.State = $("#ddlstate :selected").text()
+            jp.City = $('#ddlcity :selected').text();
+            jp.ZipCode = $('#txtzipcode').val();
+            jp.PaymentType = $('#ddlpaytype').val();
+            jp.PaymentMode = $('#ddlpaytype').val();
+            jp.Currency = $('#txtcurrencytype').val();
+            jp.Amount = $('#txtamount').val();
+            jp.post_comments = $('#txtdescmsg').val();
+            jp.post_title = $('#txtjobtitle').val();
+            jp.other_category = $('#txtothers').val();
+            jp.RequestType = 'Insert'
+
+            $.ajax({
+                //url: '@Url.Action("AgentJobPost", "AgentPostResource")',
+                url: '/Home/PostJobAndGetJobs',
+                type: 'POST',
+                data: JSON.stringify(jp),
+                contentType: 'application/json; charset=utf-8',
+                dataType: "json",
+                success: function (res) {
+                    if (res.ResponseCode == "200") {
+                        alert('success')
+                        //  sessionStorage.setItem('dataList', JSON.stringify(res.ResponseList.joblist))
+                        var url = window.location.href.split('/')[0]
+                        window.location.href = url + '/Employer/EmpViewPosts/Index';
+                    }
+                    else if (res.ResponseCode == "100") {
+                        alert('something went wrong! Please try again.')
+                    }
+
+                    else {
+
+                        alert('Error : Status Code: ' + res.ResponseCode + '. Messsage' + res.ResponseMessage)
+                    }
+                    //$('#divLoader').modal('hide');
+                },
+
+                error: function (err) {
+
+                    $('#divLoader').modal('hide');
+                }
+            });
+        }
+    });
+
+
+</script>
+
+

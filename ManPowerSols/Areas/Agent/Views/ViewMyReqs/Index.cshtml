@@ -1,0 +1,449 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AgentLayout.cshtml";
+}
+<div class="">
+    <div class="az-content-body">
+        <div class="row row-sm">
+            <div class="col-xl-12 mg-t-20">
+                <div class="card card-dashboard-twentyone">
+                    <div class="row no-gutters">
+                        <div class="col-md-12">
+                            <!--Div To show the dta grid-->
+                            <div class="card-body" id="divJobsgrid">
+                                <!-- <h6 class="az-content-label">My Profile</h6> -->
+                                <p>Job Posting</p>
+                                <hr class="">
+                                <div class="modal-body pd-sm-40" style="padding:20px">
+                                    <div>
+                                        <div class="form-group" data-select2-id="8">
+                                            Filter Jobs by
+                                            <select class="form-control" data-select2-id="1" style="width:20%;display:inline-block" tabindex="-1" aria-hidden="true" id="ddlsearchcategory">
+                                                <option label="Select Sector" data-select2-id="3"></option>
+                                                <option value="Marine" data-select2-id="17">Marine</option>
+                                                <option value="Marine Crew" data-select2-id="17">Marine Crew</option>
+                                                <option value="Hotel Crew" data-select2-id="17">Hotel Crew</option>
+                                                <option value="Construction" data-select2-id="17">Construction</option>
+                                                <option value="Process" data-select2-id="16">Process</option>
+                                                <option value="Service" data-select2-id="17">Service</option>
+                                                <option value="Office" data-select2-id="17">Office</option>
+                                                <option value="Voyage" data-select2-id="19">Voyage</option>
+                                                <option value="Riding Crew" data-select2-id="17">Riding Crew</option>
+                                                <option value="Domestic Workers" data-select2-id="17">Domestic Workers</option>
+                                                <option value="Offshore" data-select2-id="19">Offshore</option>
+                                                <option value="Others" data-select2-id="19">Others</option>
+                                            </select> (or)
+                                            <select class="form-control" data-select2-id="1" style="width:20%;display:inline-block" tabindex="-1" aria-hidden="true" id="ddlsearchcountry">
+                                                <option label="Select Country" data-select2-id="3"></option>
+                                            </select>
+                                            (or)
+                                            <select class="form-control" data-select2-id="1" style="width:20%;display:inline-block" tabindex="-1" aria-hidden="true" id="ddlsearchstate">
+                                                <option label="Select State" data-select2-id="3"></option>
+                                               
+                                            </select>
+                                            (Or)
+                                            <select class="form-control" style="width:20%;display:inline-block" data-select2-id="1" tabindex="-1" aria-hidden="true" id="ddlsearchcity">
+                                                <option label="Select City" data-select2-id="3"></option>
+                                            </select>
+                                        </div>
+                                        <table id="example2" class="table"></table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--Div to show the edited values -->
+                            <div class="card-body" id="divupdatejobdetails" style="display:none">
+                                <input type="hidden" id="txtrecid" />
+                                <input type="hidden" id="txtuserid" />
+                                <input type="hidden" id="txtrectype" />
+                                <input type="hidden" id="txtrecaccessstatus" />
+                                <p>Update Job details</p>
+                                <hr>
+                                <div class="modal-body pd-sm-40" style="padding:20px">
+                                    <form id="frmsrc" method="post" name="frmsrc">
+                                        <div class="form-group" data-select2-id="8">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Job Title" id="txtjobtitle" name="txtjobtitle" required="required">
+                                            </div><!-- form-group -->
+                                            <select class="form-control" data-select2-id="1" tabindex="-1" aria-hidden="true" name="ddlcategory" id="ddlcategory">
+                                                <option label="Select Sector" data-select2-id="3"></option>
+                                                <option value="Marine" data-select2-id="17">Marine</option>
+                                                <option value="Marine Crew" data-select2-id="17">Marine Crew</option>
+                                                <option value="Hotel Crew" data-select2-id="17">Hotel Crew</option>
+                                                <option value="Construction" data-select2-id="17">Construction</option>
+                                                <option value="Process" data-select2-id="16">Process</option>
+                                                <option value="Service" data-select2-id="17">Service</option>
+                                                <option value="Office" data-select2-id="17">Office</option>
+                                                <option value="Voyage" data-select2-id="19">Voyage</option>
+                                                <option value="Riding Crew" data-select2-id="17">Riding Crew</option>
+                                                <option value="Domestic Workers" data-select2-id="17">Domestic Workers</option>
+                                                <option value="Offshore" data-select2-id="19">Offshore</option>
+                                                <option value="Others" data-select2-id="19">Others</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Other Sector" style="display:none" id="txtothers" name="txtothers" required="required">
+                                        </div><!-- form-group -->
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Company Name" id="txtcompany" name="txtcompany" />
+                                        </div><!-- form-group -->
+                                        <div class="form-group">
+                                            <input type="text" class="form-control numsonly" placeholder="No. Employees Required" id="txtnoemps" name="txtnoemps" />
+                                        </div><!-- form-group -->
+                                        <div class="form-group">
+                                            <input type="text" class="form-control decimals" placeholder="Emp. Experience" id="txtempexp" name="txtempexp">
+                                        </div><!-- form-group -->
+                                        <div class="form-group" data-select2-id="8">
+                                            <select class="form-control" data-select2-id="1" tabindex="-1" aria-hidden="true" id="ddltimings" name="ddltimings">
+                                                <option label="Shift Timings" data-select2-id="3"></option>
+                                                <option value="6AM to 4PM" data-select2-id="16">6AM to 4PM</option>
+                                                <option value="9AM to 6PM" data-select2-id="17">9AM to 6PM</option>
+                                                <option value="8PM to 5AM" data-select2-id="19">8PM to 5AM</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group" data-select2-id="8">
+                                            <select class="form-control" data-select2-id="1" tabindex="-1" aria-hidden="true" id="ddlcontractperiod" name="ddlcontractperiod">
+                                                <option label="Contract Period" data-select2-id="3"></option>
+                                                <option value="1 Week" data-select2-id="16">1 Week</option>
+                                                <option value="2 Weeks" data-select2-id="16">2 Weeks</option>
+                                                <option value="1 Month" data-select2-id="16">1 Month</option>
+                                                <option value="3 Months" data-select2-id="17">3 Months</option>
+                                                <option value="6 Months" data-select2-id="19">6 Months</option>
+                                                <option value="1 Year" data-select2-id="19">1 Year</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group" data-select2-id="8">
+                                            <select class="form-control" data-select2-id="1" tabindex="-1" aria-hidden="true" id="ddlpaytype" name="ddlpaytype">
+                                                <option label="Payment Type" data-select2-id="3"></option>
+                                                <option value="Per Hour" data-select2-id="16">Per Hour</option>
+                                                <option value="Per Day" data-select2-id="17">Per Day</option>
+                                                <option value="Per Week" data-select2-id="19">Per Week</option>
+                                                <option value="Per Month" data-select2-id="19">Per Month</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <select class="form-control" style="width:23%;display:inline-block" placeholder="Currency Type" id="txtcurrencytype" name="txtcurrencytype">
+                                                <option label="Currency Type" data-select2-id="3"></option>
+                                                <option value="$-SGD" data-select2-id="16">SGD</option>
+                                                <option value="$-USD" data-select2-id="16">USD</option>
+                                                <option value="$-AUD" data-select2-id="16">AUD</option>
+                                                <option value="$-KWD" data-select2-id="16">KWD</option>
+                                                <option value="$-IQD" data-select2-id="16">IQD</option>
+                                                <option value="₹-INR" data-select2-id="17">INR</option>
+                                                <option value="Rp-IDR" data-select2-id="17">IDR</option>
+                                                <option value="₱-PHP" data-select2-id="17">PHP</option>
+                                                <option value="RM-MYR" data-select2-id="17">MYR</option>
+                                                <option value="€-Euro" data-select2-id="19">Euro</option>
+
+                                            </select>
+                                            <input type="text" class="form-control decimals" style="width:75%;display:inline-block" placeholder="Amount" id="txtamount" name="txtamount">
+                                        </div><!-- form-group -->
+                                        <div class="form-group">
+                                            <textarea class="form-control" placeholder="Work Location" id="txtworkloc" name="txtworkloc"></textarea>
+                                        </div><!-- form-group -->
+                                        <div class="form-group" data-select2-id="8">
+                                            <select class="form-control" data-select2-id="1" tabindex="-1" aria-hidden="true" id="ddltrsprt" name="ddltrsprt">
+                                                <option label="Transport Facility" data-select2-id="3"></option>
+                                                <option value="Yes" data-select2-id="15">Yes</option>
+                                                <option value="No" data-select2-id="16">No</option>
+
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <textarea class="form-control" placeholder="Description" id="txtdescmsg" name="txtdescmsg"></textarea>
+                                        </div><!-- form-group -->
+                                        <div class="form-group">
+
+                                            <select class="form-control" data-select2-id="1" tabindex="-1" style="width:49%;display:inline-block" aria-hidden="true" id="ddlcountry" name="ddlcountry">
+                                                <option label="Select Country" data-select2-id="3"></option>
+
+
+                                            </select>
+                                            <select class="form-control" data-select2-id="1" tabindex="-1" style="width:49%;display:inline-block" aria-hidden="true" id="ddlstate" name="ddlstate">
+                                                <option label="Select State" data-select2-id="3"></option>
+                                            </select>
+
+                                        </div><!-- form-group -->
+                                        <div class="form-group">
+                                            <select class="form-control" data-select2-id="1" tabindex="-1" style="width:49%;display:inline-block" aria-hidden="true" id="ddlcity" name="ddlcity">
+                                                <option label="Select State" data-select2-id="3"></option>
+                                            </select>
+                                            <input type="text" class="form-control numsonly" maxlength="7" style="width:49%;display:inline-block" placeholder="Zip Code" id="txtzipcode" name="txtzipcode">
+                                        </div>
+                                        <br>
+
+                                        <button class="btn btn-warning" id="btncancelupdate" type="reset">Cancel</button>&nbsp;&nbsp;
+                                        <button class="btn btn-primary" id="btnUpdateJobDetails" type="submit">Update Details</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- row -->
+                </div><!-- card -->
+            </div><!-- col -->
+        </div><!-- row -->
+    </div><!-- az-content-body -->
+    <!-- az-footer -->
+</div><!-- az-content -->
+
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+
+<script src="~/lib/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="~/lib/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="~/lib/datatables.net-dt/js/dataTables.dataTables.min.js"></script>
+<script src="~/lib/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="~/lib/datatables.net-responsive-dt/js/responsive.dataTables.min.js"></script>
+
+<script src="~/MpsJs/CommonJs.js"></script>
+
+<script>
+    new PerfectScrollbar('.az-sidebar-body', {
+        suppressScrollX: true
+    });
+    var dataSet = []
+    $(document).ready(function () {
+        getAgentPosts()
+    })
+    function getAgentPosts() {
+        //  $('#divLoader').modal('show');
+        var jp = {};
+        jp.UserID = sessionStorage.getItem('usermailid');
+        jp.RecordType = sessionStorage.getItem('usertype')
+        jp.RequestType = 'View'
+        $.ajax({
+            @*url: '@Url.Action("AgentJobPost", "AgentPostResource")',*@
+            url: '/Home/PostJobAndGetJobs',
+            type: 'POST',
+            data: JSON.stringify(jp),
+            contentType: 'application/json; charset=utf-8',
+            dataType: "json",
+            success: function (res) {
+                console.log(res)
+                ;
+                if (res.ResponseCode == "200") {
+                    //sessionStorage.setItem('dataList', JSON.stringify(res.ResponseList.joblist))
+                    dataSet = res.ResponseList.joblist
+                    binddata(res.ResponseList.joblist)
+                }
+
+                else if (res.ResponseCode == "100") {
+                    //alert('something went wrong! Please try again.')
+                    binddata(dataSet)
+                }
+                else {
+
+                    alert('Error : Status Code: ' + res.ResponseCode + '. Messsage' + res.ResponseMessage)
+                }
+                ;
+                $('#divLoader').modal('hide');
+            },
+            error: function (err) {
+                $('#divLoader').modal('hide');
+            }
+        });
+    }
+    //Function used to bind the data to data table
+    var table;
+    function binddata(res) {
+        var url = window.location.href.split('/')[0]
+        console.log(dataSet)
+        for (var i = 0; i < res.length; i++) {
+            var act = '<img src="' + url + '/img/edit.png" style="cursor:pointer" onclick="editJob(\'' + res[i].Rec_ID + '\')">&nbsp;&nbsp;<img src="' + url + '/img/delete.png" onclick="deleteJob(\'' + res[i].Rec_ID + '\',\'N\')" style="cursor:pointer">'
+            dataSet[i] = [
+                             res[i].CompanyName,
+                           res[i].Post_Category, //+ '-' + res[i].Post_SubCategory,
+                           res[i].NoOfEmp + ' Nos',
+                           res[i].Emp_experince + ' Years',
+                           res[i].shifttimings,
+                           res[i].ContractPeriod + 'Months',
+                           res[i].WorkLocation,
+                           act
+            ]
+        }
+        console.log(dataSet)
+        table = $('#example2').DataTable({
+            destroy: true,
+            responsive: true,
+            language: {
+                searchPlaceholder: 'Search...',
+                sSearch: '',
+                lengthMenu: '_MENU_ items/page',
+            },
+            data: dataSet,
+            columns: [{ title: "Company Name" },
+            { title: "Category" },
+            { title: "No of Emp" },
+             { title: "Experience" },
+            { title: "Timings" },
+
+            { title: "Contract Period", },
+            { title: "Location", },
+              { title: "Action", },
+            ],
+            buttons: {
+                buttons: [
+                    {
+                        text: 'Alert',
+                        action: function (e, dt, node, config) {
+                            alert('Activated!');
+                            this.disable(); // disable button
+                        }
+                    }
+                ]
+            }
+        });
+    }
+
+    $('#ddlsearchcategory').change(function (e) {
+        table.columns(1).search(this.value).draw();
+    })
+    function deleteJob(recid, sts) {
+        var jp = {};
+        jp.Rec_ID = recid;
+        jp.Recd_status = sts;
+        $.ajax({
+            //url: '@Url.Action("DeleteJob", "EmpViewPosts")',
+            url: '/Home/DeleteJob',
+            type: 'POST',
+            data: JSON.stringify(jp),
+            contentType: 'application/json; charset=utf-8',
+            dataType: "json",
+            success: function (res) {
+                if (res.ResponseCode == "200") {
+                    alert('successfully deleted the post')
+                    getAgentPosts()
+                    //var url = window.location.href.split('/')[0]
+                    //window.location.href = url + '/Employer/ViewMyReqs/Index';
+                }
+                else if (res.ResponseCode == "100") {
+                    alert('something went wrong! Please try again.')
+                }
+
+                else {
+
+                    alert('Error : Status Code: ' + res.ResponseCode + '. Messsage' + res.ResponseMessage)
+                }
+                //$('#divLoader').modal('hide');
+            },
+
+            error: function (err) {
+
+                //$('#divLoader').modal('hide');
+            }
+        });
+    }
+</script>
+
+<!--script about update details-->
+<script>
+    $('#btncancelupdate').click(function () {
+        $('#divJobsgrid').show()
+        $('#divupdatejobdetails').hide()
+    })
+    $("form[name='frmsrc']").validate({
+        // Specify validation rules
+        rules: {
+            ddlcategory: "required",
+            txtsubcat: "required",
+            txtnoemps: "required",
+            txtempexp: "required",
+            ddltimings: "required",
+            ddlcontractperiod: "required",
+            ddltrsprt: "required",
+            txtworkloc: "required",
+            cbterms: "required",
+            txtcompany: "required",
+
+            ddlpaytype: "required",
+            txtcurrencytype: "required",
+            txtamount: "required",
+            txtdescmsg: "required",
+            //ddlcountry: "required",
+            //ddlstate: "required",
+            ddlcity: "required"
+        },
+
+        submitHandler: function (form) {
+            form.submit();
+        },
+        errorPlacement: function (error, element) {
+            var placement = $(element).data('error');
+            if (placement) {
+                $(placement).append(error)
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
+    $('#ddlcategory').change(function () {
+        if ($(this).val() == 'Others')
+            $('#txtothers').show()
+        else
+            $('#txtothers').hide()
+    })
+
+    var dataSet = [];
+    var form = $("#frmsrc");
+    form.validate();
+
+    $('#btnUpdateJobDetails').click(function (e) {
+        if (form.valid() == true) {
+            e.preventDefault();
+            var jp = {};
+            jp.Post_Category = $('#ddlcategory').val();
+            jp.Post_SubCategory = $('#txtsubcat').val();
+            jp.NoOfEmp = $('#txtnoemps').val();
+            jp.CompanyName = $('#txtcompany').val();
+            jp.Emp_experince = $('#txtempexp').val();
+            jp.shifttimings = $('#ddltimings').val();
+            jp.ContractPeriod = $('#ddlcontractperiod').val();
+            jp.WorkLocation = $("#txtworkloc").val()
+            jp.UserID = $('#txtuserid').val();
+            jp.RecordType = $('#txtrectype').val();
+            jp.Access_status = $('#txtrecaccessstatus').val();
+            jp.TransaposrtFacility = $('#ddltrsprt').val();
+            jp.Country = $('#ddlcountry :selected').text();
+            jp.State = $("#ddlstate :selected").text()
+            jp.City = $('#ddlcity :selected').text();
+            jp.ZipCode = $('#txtzipcode').val();
+            jp.PaymentType = $('#ddlpaytype').val();
+            jp.PaymentMode = $('#ddlpaytype').val();
+            jp.Currency = $('#txtcurrencytype').val();
+            jp.Amount = $('#txtamount').val();
+            jp.post_comments = $('#txtdescmsg').val();
+            jp.post_title = $('#txtjobtitle').val();
+            jp.other_category = $('#txtothers').val();
+            jp.RecID = $('#txtrecid').val();
+            //console.log(jp)
+            $.ajax({
+                url: '/ViewMyReqs/UpdateJobDetails',
+                type: 'POST',
+                data: JSON.stringify(jp),
+                contentType: 'application/json; charset=utf-8',
+                dataType: "json",
+                success: function (res) {
+                    if (res.ResponseCode == "200") {
+                        alert('successfully updated')
+                    }
+                    else if (res.ResponseCode == "100") {
+                        alert('something went wrong! Please try again.')
+                    }
+
+                    else {
+
+                        alert('Error : Status Code: ' + res.ResponseCode + '. Messsage' + res.ResponseMessage)
+                    }
+                    //$('#divLoader').modal('hide');
+                },
+
+                error: function (err) {
+                }
+            });
+        }
+    });
+
+
+</script>
